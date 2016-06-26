@@ -14,7 +14,10 @@ public class Porta implements Observer, Subject{
 	private Barramento barramento;
 	private Componente c;
 	
-	public Porta(){
+	public Porta(boolean in, Barramento b, Componente c){
+		this.c = c;
+		this.in = in;
+		this.barramento = b;
 		this.obs = new LinkedList<Observer>();
 	}
 

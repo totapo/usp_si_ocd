@@ -15,9 +15,6 @@ public class Barramento implements Subject{
 		this.observers = new LinkedList<Observer>();
 	}
 	
-	
-	
-	
 	private List<Observer> observers;
 	
 	@Override

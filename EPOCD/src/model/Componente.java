@@ -2,10 +2,11 @@ package model;
 
 public abstract class Componente {
 	
-	public Palavra p;
+	private Palavra p;
 	
-	public void setPalavra(Palavra palavra) {
+	public  void setPalavra(Palavra palavra) {
 		p = palavra;
+		
 	}
 
 	public Palavra getPalavra() {
