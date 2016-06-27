@@ -3,15 +3,15 @@ package model;
 public class Palavra {
 	//TODO
 	//SETAR A QTD BITS
-	public static final int qtdBitsPalavra = 0;
+	public static final int qtdBitsPalavra = 32;
 	
-	boolean[] bits;
+	int[] bits;
 	
-	public Palavra(boolean [] b){
+	public Palavra(int[] b){
 		this.bits = b;
 	}
 	
-	public boolean[] getBits(){
+	public int[] getBits(){
 		return bits;
 	}
 }

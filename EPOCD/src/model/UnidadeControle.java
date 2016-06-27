@@ -8,7 +8,7 @@ import halp.Subject;
 
 public class UnidadeControle implements Subject{
 	private Firmware firm;
-	
+	private LinhaControle atual;
 	public UnidadeControle(){
 		firm = new Firmware();
 		this.observers = new LinkedList<Observer>();
@@ -27,8 +27,12 @@ public class UnidadeControle implements Subject{
 	}
 	
 	static boolean[] convertToBit(int a){
-		//boolean[] r = 
-		return null;
+		String b = Integer.toBinaryString(a);
+		boolean[] resp = new boolean[b.length()];
+		for(int i=0; i<resp.length; i++){
+			resp[i]=b.charAt(i)=='1';
+		}
+		return resp;
 	}
 	
 	public void advanceClock(){
@@ -47,6 +51,10 @@ public class UnidadeControle implements Subject{
 	public void notifyObservers() {
 		for(Observer o : observers)
 			o.notify(this);
+	}
+
+	public boolean getStatus(int id) {
+		return atual.getLinha()[id]==1;
 	}
 
 }

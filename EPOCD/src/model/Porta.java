@@ -13,18 +13,21 @@ public class Porta implements Observer, Subject{
 	private boolean in;
 	private Barramento barramento;
 	private Componente c;
+	private int id;
 	
-	public Porta(boolean in, Barramento b, Componente c){
+	public Porta(boolean in, int id, Barramento b, Componente c){
 		this.c = c;
 		this.in = in;
+		this.id=id;
 		this.barramento = b;
 		this.obs = new LinkedList<Observer>();
 	}
+	
 
 	@Override
 	public void notify(Subject s) {
 		if(s instanceof UnidadeControle){
-			this.aberta = !this.aberta;
+			this.aberta = ((UnidadeControle) s).getStatus(id);
 			if(aberta){
 				if(in) c.setPalavra(barramento.getPalavra());
 				else barramento.setPalavra(c.getPalavra());
