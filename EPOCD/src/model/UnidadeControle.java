@@ -18,7 +18,7 @@ public class UnidadeControle implements Subject{
 	byte indirecao;
 	
 	private static Map<OpCode, byte[]> CodeCfgs; 
-	//0 é linha do firmware
+	//0 é a linha do firmware onde comecam as microinstrucoes
 	//1 é se usa o ir da seguinte forma ELE SEMPRE INTERPRETA A MEMORIA DESSE JEITO: OPCODE-REGS-RESTO, o que define onde vao as coisas eh esse valor
 	//  0 = p1 pega td; 
 	//  1 = p1 pega reg e p2 pega resto; 
@@ -63,10 +63,10 @@ public class UnidadeControle implements Subject{
 		CodeCfgs.put(new OpCode(new byte[]{1,0,1,0,0}),new byte[]{50,0,4}); //jge
 		CodeCfgs.put(new OpCode(new byte[]{1,0,1,0,1}),new byte[]{50,0,4}); //jz
 		CodeCfgs.put(new OpCode(new byte[]{1,0,1,1,0}),new byte[]{50,0,4}); //jnz
-		CodeCfgs.put(new OpCode(new byte[]{1,0,1,1,1}),new byte[]{0,4,4}); //cmp num,num
-		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,0}),new byte[]{0,1,4}); //cmp reg,num
-		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,1}),new byte[]{0,2,4}); //cmp num,reg
-		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,1}),new byte[]{0,3,4}); //cmp reg,reg
+		CodeCfgs.put(new OpCode(new byte[]{1,0,1,1,1}),new byte[]{ 0,4,4}); //cmp num,num
+		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,0}),new byte[]{ 0,1,4}); //cmp reg,num
+		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,1}),new byte[]{ 0,2,4}); //cmp num,reg
+		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,1}),new byte[]{ 0,3,4}); //cmp reg,reg
 	}
 	
 	
@@ -77,23 +77,35 @@ public class UnidadeControle implements Subject{
 	}
 	
 	private void executeMicroInstruction(){
-		operacao = ir.getOpCode();
-		if(CodeCfgs.containsKey(operacao)){
-			indirecao = CodeCfgs.get(operacao)[2];
-			atual = firm.getInstruction();
-			portas = atual.getPortas();
-			
-			if(atual.getDecode()!=0){
-				switch(atual.getDecode()){
-				case 1: break;
-				case 2: break;
-				case 3: break;
-				case 4: break;
-				case 5: break;
-				case 6: break;
-				default:break;
-				}
+		byte ponteiro;
+		atual = firm.getInstruction();
+		portas = atual.getPortas();
+		
+		if(atual.getDecode()!=0){ //seta as portas que faltam de acordo com o decode q vem do firmware
+			switch(atual.getDecode()){
+			case 1: break;
+			case 2: break;
+			case 3: break;
+			case 4: break;
+			case 5: break;
+			case 6: break;
+			default:break;
 			}
+		}
+		
+		//se tiver coisa pra memoria manda wrav
+		
+		notifyObservers(); //notifica as portas que os valores delas podem ter mudado e elas se atualizam e mexem com o barramento
+		
+		//manda codigo pra ula se tiver
+		
+		ponteiro = atual.getProx();
+		if(ponteiro==-1){ //ve se tem indirecao na instrucao do ir
+			
+		} else if(ponteiro==-2){ //determina pulo pelo opcode do ir
+			
+		} else {
+			firm.setPointer(ponteiro);
 		}
 		
 	}
