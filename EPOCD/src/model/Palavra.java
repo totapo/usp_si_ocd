@@ -5,13 +5,20 @@ public class Palavra {
 	//SETAR A QTD BITS
 	public static final int qtdBitsPalavra = 32;
 	
-	int[] bits;
+	private byte[] bits;
 	
-	public Palavra(int[] b){
+	public Palavra(byte[] b){
 		this.bits = b;
 	}
 	
-	public int[] getBits(){
+	public byte[] getBits(){
 		return bits;
+	}
+	
+	public String bitString(){
+		String r = "";
+		for(byte b:bits)
+			r+=b+"";
+		return r;
 	}
 }
