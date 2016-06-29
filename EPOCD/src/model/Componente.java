@@ -1,16 +1,9 @@
 package model;
 
-public abstract class Componente {
+public interface  Componente {
 	
-	private Palavra p;
-	
-	public  void setPalavra(Palavra palavra) {
-		p = palavra;
-		
-	}
+	public  void setPalavra(Palavra palavra, int idPorta);
 
-	public Palavra getPalavra() {
-		return p;
-	}
+	public Palavra getPalavra();
 
 }

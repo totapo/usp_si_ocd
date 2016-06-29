@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import componentes.IR;
+import componentes.Memoria;
+import componentes.ULA;
 import halp.Observer;
 import halp.Subject;
 
@@ -15,11 +17,13 @@ public class UnidadeControle implements Subject{
 	private byte[] portas;
 	private IR ir;
 	private OpCode operacao;
+	private Memoria mem;
+	private ULA ula;
 	byte indirecao;
 	
 	private static Map<OpCode, byte[]> CodeCfgs; 
 	//0 é a linha do firmware onde comecam as microinstrucoes
-	//1 é se usa o ir da seguinte forma ELE SEMPRE INTERPRETA A MEMORIA DESSE JEITO: OPCODE-REGS-RESTO, o que define onde vao as coisas eh esse valor
+	//1 é se usa o ir da seguinte forma: ELE SEMPRE INTERPRETA A MEMORIA DESSE JEITO: OPCODE-REGS-RESTO, o que define onde vao as coisas eh esse valor
 	//  0 = p1 pega td; 
 	//  1 = p1 pega reg e p2 pega resto; 
 	//  2 = p2 pega reg e p1 pega resto;
@@ -76,58 +80,47 @@ public class UnidadeControle implements Subject{
 		this.observers = new LinkedList<Observer>();
 	}
 	
-	private void executeMicroInstruction(){
+	private void executeMicroInstruction() throws Exception{
 		byte ponteiro;
 		atual = firm.getInstruction();
 		portas = atual.getPortas();
 		
 		if(atual.getDecode()!=0){ //seta as portas que faltam de acordo com o decode q vem do firmware
 			switch(atual.getDecode()){
-			case 1: break;
-			case 2: break;
-			case 3: break;
-			case 4: break;
-			case 5: break;
-			case 6: break;
+			case 1: 
+				
+				break;
+			case 2: 
+				break;
+			case 3: 
+				break;
+			case 4: 
+				break;
+			case 5: 
+				break;
+			case 6: 
+				break;
 			default:break;
 			}
 		}
 		
-		//se tiver coisa pra memoria manda wrav
+		mem.setFlags(atual.getRWAV());
 		
-		notifyObservers(); //notifica as portas que os valores delas podem ter mudado e elas se atualizam e mexem com o barramento
+		notifyObservers(); 					//notifica as portas que os valores delas podem ter mudado e elas se atualizam e mexem com o barramento
 		
-		//manda codigo pra ula se tiver
+		ula.setOperacao(atual.getULA());	//manda codigo pra ula se tiver
 		
 		ponteiro = atual.getProx();
-		if(ponteiro==-1){ //ve se tem indirecao na instrucao do ir
+		if(ponteiro==-1){ 					//ve se tem indirecao na instrucao do ir
 			
-		} else if(ponteiro==-2){ //determina pulo pelo opcode do ir
+		} else if(ponteiro==-2){ 			//determina pulo pelo opcode do ir
 			
-		} else {
-			firm.setPointer(ponteiro);
-		}
-		
+		} 
+
+		firm.setPointer(ponteiro);
 	}
 	
-	static int convertToInt(boolean[] a){
-		int x = 0;
-		for(int i=a.length-1; i>=0; i--){
-			x+=Math.pow(2, i);
-		}
-		return x;
-	}
-	
-	static boolean[] convertToBit(int a){
-		String b = Integer.toBinaryString(a);
-		boolean[] resp = new boolean[b.length()];
-		for(int i=0; i<resp.length; i++){
-			resp[i]=b.charAt(i)=='1';
-		}
-		return resp;
-	}
-	
-	public void advanceClock(){
+	public void advanceClock() throws Exception{
 		executeMicroInstruction();
 	}
 	

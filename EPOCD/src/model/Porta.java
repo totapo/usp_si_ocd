@@ -29,13 +29,13 @@ public class Porta implements Observer, Subject{
 		if(s instanceof UnidadeControle){
 			this.aberta = ((UnidadeControle) s).getStatus(id);
 			if(aberta){
-				if(in) c.setPalavra(barramento.getPalavra());
+				if(in) c.setPalavra(barramento.getPalavra(),id);
 				else barramento.setPalavra(c.getPalavra());
 			}
 			notifyObservers();
 		} else if(s instanceof Barramento){
 			if(aberta && in){
-				c.setPalavra(barramento.getPalavra());
+				c.setPalavra(barramento.getPalavra(),id);
 			}
 		}
 	}

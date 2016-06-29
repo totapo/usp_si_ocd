@@ -7,8 +7,23 @@ public class Palavra {
 	
 	private byte[] bits;
 	
-	public Palavra(byte[] b){
-		this.bits = b;
+	public Palavra(){
+		this.bits = new byte[qtdBitsPalavra];
+	}
+	
+	public Palavra(int resp) {
+		this.bits = new byte[qtdBitsPalavra];
+		String s = Integer.toBinaryString(resp);
+		for(int i=s.length()-1; i>=0; i--){
+			bits[i] = (byte) ((s.charAt(i)=='1')?1:0);
+		}
+	}
+
+	public void setValue(byte[] b){
+		if(b.length>=32)
+			for(int i=0; i<32; i++){
+				bits[i]=b[i];
+			}
 	}
 	
 	public byte[] getBits(){

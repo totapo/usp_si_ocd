@@ -1,34 +1,37 @@
 package componentes;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import model.Componente;
 import model.Palavra;
-import model.Porta;
 
-public class Registrador extends Componente{
+public class Registrador implements Componente{
 	private String nome;
+	private String codigo;
 	private Palavra mem;
-	private List<Porta> portas;
 	
-	public Registrador(String nome){
+	public Registrador(String nome, String codigo){
 		this.nome = nome;
-		portas = new ArrayList<Porta>();
-	}
-	
-	public void setMem(Palavra mem) {
-		this.mem = mem;
-	}
-	
-	public void addPorta(Porta p){
-		this.portas.add(p);
+		this.codigo = codigo;
 	}
 
 	public String getNome() {
 		return nome;
 	}
-	public Palavra getMem() {
+	
+	public String getCodigo(){
+		return codigo;
+	}
+	
+	@Override
+	public String toString() {
+		return nome;
+	}
+
+	@Override
+	public void setPalavra(Palavra palavra,int idPorta) {
+		this.mem = palavra;
+	}
+
+	@Override
+	public Palavra getPalavra() {
 		return mem;
 	}
 	

@@ -1,7 +1,5 @@
 package componentes;
 
-import java.util.Arrays;
-
 import model.OpCode;
 import model.Palavra;
 import model.UnidadeControle;
@@ -9,25 +7,30 @@ import model.UnidadeControle;
 public class IR extends Registrador{
 	private OpCode opcode;
 	
-	public IR(String nome) {
-		super(nome);
+	public IR(String nome, String codigo) {
+		super(nome, codigo);
 	}
 	
 	@Override
-	public void setMem(Palavra mem) {
-		super.setMem(mem);
+	public void setPalavra(Palavra mem, int idPorta) {
+		super.setPalavra(mem, idPorta);
 		opcode = new OpCode(mem); //5 primeiros bits
-		if(UnidadeControle.getQtdRegs(opcode)==2){
+		switch(UnidadeControle.getQtdRegs(opcode)){
+		case 0:
 			
-		} else {
-			
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		default:
+			break;
 		}
 		//bits = ;
-	}
-
-	private int intValue(){
-		//Integer.
-		return 0;
 	}
 	
 	/*public int getP1(){
