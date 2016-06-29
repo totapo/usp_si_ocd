@@ -3,7 +3,7 @@ package model;
 import java.util.Arrays;
 
 public class LinhaControle {
-	private static final int tamLinha = 37;
+	private static final int tamLinha = 39;
 	//private static final int fimPortas = 29;
 	//private static final int fimJump = 31;
 	//private static final int fimProx = 32;
@@ -23,27 +23,27 @@ public class LinhaControle {
 	}
 	
 	public byte[] getPortas(){
-		return Arrays.copyOfRange(linha, 0, 30);
+		return Arrays.copyOfRange(linha, 0, 32);
 	}
 	
 	public byte getJmpCond(){
-		return linha[30];
-	}
-	
-	public byte getProx(){
-		return linha[31];
-	}
-	
-	public byte getULA(){
 		return linha[32];
 	}
 	
+	public byte getProx(){
+		return linha[33];
+	}
+	
+	public byte getULA(){
+		return linha[34];
+	}
+	
 	public byte[] getRWAV(){
-		return Arrays.copyOfRange(linha, 33, 36);
+		return Arrays.copyOfRange(linha, 35, 38);
 	}
 	
 	public byte getDecode(){
-		return linha[36];
+		return linha[38];
 	}
 	
 }
