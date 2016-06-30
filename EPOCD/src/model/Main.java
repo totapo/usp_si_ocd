@@ -19,11 +19,20 @@ public class Main {
 	private List<Barramento> barramentos;
 	
 	public static void main(String[] args){
+		Tradutor t = Tradutor.instanceOf();
+		
+		try {
+			System.out.println(t.traduzir("mov ax,bx"));
+			System.out.println(t.traduzir("mov ax,1500"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		new Main();
 	}
 	
 	public Main(){
-		initComponentes();
+		//initComponentes();
 	}
 
 	private void initComponentes() {

@@ -73,9 +73,9 @@ public class UnidadeControle implements Subject{
 		CodeCfgs.put(new OpCode(new byte[]{1,0,1,1,1}),new byte[]{55,4,0}); //cmp num,num
 		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,0}),new byte[]{57,1,0}); //cmp reg,num
 		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,1}),new byte[]{59,2,0}); //cmp num,reg
-		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,1}),new byte[]{61,3,0}); //cmp reg,reg
-		CodeCfgs.put(new OpCode(new byte[]{1,1,0,1,0}),new byte[]{63,0,0}); //mul num
-		CodeCfgs.put(new OpCode(new byte[]{1,1,0,1,1}),new byte[]{65,0,0}); //div num
+		CodeCfgs.put(new OpCode(new byte[]{1,1,0,1,0}),new byte[]{61,3,0}); //cmp reg,reg
+		CodeCfgs.put(new OpCode(new byte[]{1,1,0,1,1}),new byte[]{63,0,0}); //mul num
+		CodeCfgs.put(new OpCode(new byte[]{1,1,1,0,0}),new byte[]{65,0,0}); //div num
 	}
 	
 	

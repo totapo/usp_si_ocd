@@ -4,37 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Tradutor {
-	/*
-		CodeCfgs.put(new OpCode(new byte[]{0,0,0,0,0}),new byte[]{11,3,0}); //add reg,reg
-		CodeCfgs.put(new OpCode(new byte[]{0,0,0,0,1}),new byte[]{15,3,0}); //sub reg,reg
-		CodeCfgs.put(new OpCode(new byte[]{0,0,0,1,0}),new byte[]{19,3,0}); //mov reg,reg
-		CodeCfgs.put(new OpCode(new byte[]{0,0,0,1,1}),new byte[]{20,1,0}); //mul reg
-		CodeCfgs.put(new OpCode(new byte[]{0,0,1,0,0}),new byte[]{24,1,0}); //div reg
-		CodeCfgs.put(new OpCode(new byte[]{0,0,1,0,1}),new byte[]{31,1,0}); //inc reg
-		CodeCfgs.put(new OpCode(new byte[]{0,0,1,1,0}),new byte[]{34,1,0}); //dec reg
-		CodeCfgs.put(new OpCode(new byte[]{0,0,1,1,1}),new byte[]{37,1,0}); //add reg,num
-		CodeCfgs.put(new OpCode(new byte[]{0,1,0,0,0}),new byte[]{41,1,0}); //sub reg.num
-		CodeCfgs.put(new OpCode(new byte[]{0,1,0,0,1}),new byte[]{45,1,0}); //mov reg,num
-		CodeCfgs.put(new OpCode(new byte[]{0,1,0,1,0}),new byte[]{51,1,1}); //mov reg,[num]
-		CodeCfgs.put(new OpCode(new byte[]{0,1,0,1,1}),new byte[]{51,3,2}); //mov reg,[reg]
-		CodeCfgs.put(new OpCode(new byte[]{0,1,1,0,0}),new byte[]{46,4,0}); //mov [num],num
-		CodeCfgs.put(new OpCode(new byte[]{0,1,1,0,1}),new byte[]{49,2,0}); //mov [num],reg  - na memoria fica opcode-reg-num, isso facilita as coisas
-		CodeCfgs.put(new OpCode(new byte[]{0,1,1,1,0}),new byte[]{49,3,3}); //mov [reg].reg 
-		CodeCfgs.put(new OpCode(new byte[]{0,1,1,1,1}),new byte[]{46,1,3}); //mov [reg],num
-		CodeCfgs.put(new OpCode(new byte[]{1,0,0,0,0}),new byte[]{50,0,0}); //jmp num
-		CodeCfgs.put(new OpCode(new byte[]{1,0,0,0,1}),new byte[]{50,0,4, 0}); //jl
-		CodeCfgs.put(new OpCode(new byte[]{1,0,0,1,0}),new byte[]{50,0,4, 1}); //jle
-		CodeCfgs.put(new OpCode(new byte[]{1,0,0,1,1}),new byte[]{50,0,4, 2}); //jg
-		CodeCfgs.put(new OpCode(new byte[]{1,0,1,0,0}),new byte[]{50,0,4, 3}); //jge
-		CodeCfgs.put(new OpCode(new byte[]{1,0,1,0,1}),new byte[]{50,0,4, 4}); //jz
-		CodeCfgs.put(new OpCode(new byte[]{1,0,1,1,0}),new byte[]{50,0,4, 5}); //jnz
-		CodeCfgs.put(new OpCode(new byte[]{1,0,1,1,1}),new byte[]{55,4,0}); //cmp num,num
-		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,0}),new byte[]{57,1,0}); //cmp reg,num
-		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,1}),new byte[]{59,2,0}); //cmp num,reg
-		CodeCfgs.put(new OpCode(new byte[]{1,1,0,0,1}),new byte[]{61,3,0}); //cmp reg,reg 
-	*/
+	
 	
 	private Map<String,RegCode> regs;
+	private Map<String,byte[]> opcodes;
 	
 	private static Tradutor t;
 	
@@ -45,23 +18,170 @@ public class Tradutor {
 	
 	private Tradutor(){
 		regs =  new HashMap<String,RegCode>();
+		opcodes = new HashMap<String,byte[]>();
 		
-		regs.put("AX", new RegCode(new byte[]{0,0,0}));
-		regs.put("BX", new RegCode(new byte[]{0,0,1}));
-		regs.put("CX", new RegCode(new byte[]{0,1,0}));
-		regs.put("DX", new RegCode(new byte[]{0,1,1}));
-		regs.put("DS", new RegCode(new byte[]{1,0,0}));
+		regs.put("ax", new RegCode(new byte[]{0,0,0}));
+		regs.put("bx", new RegCode(new byte[]{0,0,1}));
+		regs.put("cx", new RegCode(new byte[]{0,1,0}));
+		regs.put("dx", new RegCode(new byte[]{0,1,1}));
+		regs.put("ds", new RegCode(new byte[]{1,0,0}));
+		
+		opcodes.put("add reg,reg", new byte[]{0,0,0,0,0});
+		opcodes.put("sub reg,reg", new byte[]{0,0,0,0,1});
+		opcodes.put("mov reg,reg", new byte[]{0,0,0,1,0});
+		opcodes.put("mul reg"    , new byte[]{0,0,0,1,1});
+		opcodes.put("div reg"    , new byte[]{0,0,1,0,0});
+		opcodes.put("inc reg"    , new byte[]{0,0,1,0,1});
+		opcodes.put("dec reg"    , new byte[]{0,0,1,1,0});
+		opcodes.put("add reg,num", new byte[]{0,0,1,1,1});
+		opcodes.put("sub reg,num", new byte[]{0,1,0,0,0});
+		opcodes.put("mov reg,num", new byte[]{0,1,0,0,1});
+		opcodes.put("mov reg,[num]", new byte[]{0,1,0,1,0});
+		opcodes.put("mov reg,[reg]", new byte[]{0,1,0,1,1});
+		opcodes.put("mov [num],num", new byte[]{0,1,1,0,0});
+		opcodes.put("mov [num],reg", new byte[]{0,1,1,0,1});
+		opcodes.put("mov [reg],reg", new byte[]{0,1,1,1,0});
+		opcodes.put("mov [reg],num", new byte[]{0,1,1,1,1});
+		opcodes.put("jmp num"      , new byte[]{1,0,0,0,0});
+		opcodes.put("jl num"       , new byte[]{1,0,0,0,1});
+		opcodes.put("jle num"      , new byte[]{1,0,0,1,0});
+		opcodes.put("jg num"       , new byte[]{1,0,0,1,1});
+		opcodes.put("jge num"      , new byte[]{1,0,1,0,0});
+		opcodes.put("jz num"       , new byte[]{1,0,1,0,1});
+		opcodes.put("jnz num"      , new byte[]{1,0,1,1,0});
+		opcodes.put("cmp num,num"  , new byte[]{1,0,1,1,1});
+		opcodes.put("cmp reg,num"  , new byte[]{1,1,0,0,0});
+		opcodes.put("cmp reg,num"  , new byte[]{1,1,0,0,1});
+		opcodes.put("cmp num,reg"  , new byte[]{1,1,0,1,0});
+		opcodes.put("cmp reg,reg"  , new byte[]{1,1,0,1,1});
+		opcodes.put("mul num"      , new byte[]{1,1,1,0,0});
+		opcodes.put("mul num"      , new byte[]{1,1,1,0,1});
 	}
 	
 	public Palavra traduzir(String assemblyLine) throws Exception{
 		Palavra resp = null;
+		boolean f1;
+		RegCode a,b;
+		a = b = null;
+		int aux1,aux2;
+		aux1=aux2=0;
+		String palavra=null;
+		f1 =false;
 		String[] linha = assemblyLine.split(" ");
 		String comando = linha[0];
 		String[] params = linha[1].split(",");
+
+		comando = comando.toLowerCase() + " ";
 		
+		if(params[0].contains("[")){
+			comando+="[";
+			params[0] = params[0].replace("[", "");
+			params[0] = params[0].replace("]", "");
+			f1=true;
+		}
 		
+		switch(params[0].toLowerCase()){
+		case "ax": 
+		case "bx":
+		case "cx":
+		case "dx":
+		case "ds":
+			a = this.regs.get(params[0].toLowerCase());
+			comando+="reg";
+			break;
+		default:
+			aux1 = Integer.parseInt(params[0]);
+			comando+="num";
+		}
+		if(f1){
+			comando+="]";
+			f1=false;
+		}
 		
+		if(params.length==2){
+			comando+= ",";
+			if(params[1].contains("[")){
+				comando+="[";
+				params[1] = params[1].replace("[", "");
+				params[1] = params[1].replace("]", "");
+				f1=true;
+			}
+			
+			switch(params[1].toLowerCase()){
+			case "ax": 
+			case "bx":
+			case "cx":
+			case "dx":
+			case "ds":
+				b = this.regs.get(params[1].toLowerCase());
+				comando+="reg";
+				break;
+			default:
+				aux2 = Integer.parseInt(params[1]);
+				comando+="num";
+			}
+			if(f1){
+				comando+="]";
+				f1=false;
+			}
+		}
+		
+		byte[] code = this.opcodes.get(comando);
 		byte[] p = new byte[32];
+		int fim;
+		if(code==null) throw new Exception("Comando invalido "+assemblyLine+ " - "+comando);
+		int i;
+		for(i=0; i<5; i++){
+			p[i] = code[i];
+		}
+		int cont;
+		if(a!=null){
+			cont=0;
+			for(;i<8; i++){
+				p[i] = a.getCode()[cont++];
+			}
+		}
+		if(a!=null && b!=null){
+			cont=0;
+			for(;i<11; i++){
+				p[i] = b.getCode()[cont++];
+			}
+		}
+		else if(b!=null){
+			cont=0;
+			for(;i<8; i++)
+				p[i] = b.getCode()[cont++];
+		}
+		int lastI = i;
+		//TODO
+		if(a==null && b==null){
+			palavra = Integer.toBinaryString(aux1);
+			fim = (Palavra.qtdBitsPalavra/2)-1;
+			cont= palavra.length()-1;
+			for(i=fim; i>lastI && cont > 0; i--){
+				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
+			}
+			lastI=i;
+			palavra = Integer.toBinaryString(aux2);
+			cont= palavra.length()-1;
+			for(i=31; i>lastI && cont > 0; i--){
+				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
+			}
+		} else if(a==null){
+			palavra = Integer.toBinaryString(aux1);
+			cont= palavra.length()-1;
+			for(i=31; i>lastI && cont > 0; i--){
+				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
+			}
+		} else if(b==null){
+			palavra = Integer.toBinaryString(aux2);
+			cont=palavra.length()-1;
+			for(i=31; i>lastI && cont > 0; i--){
+				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
+			}
+		}
+		System.out.println(palavra);
+		resp = new Palavra(p);
 		
 		return resp;
 	}

@@ -7,7 +7,7 @@ public class Firmware {
 	private int pointer;
 	
 	static {
-		instrucoes = new LinhaControle[63]; 
+		instrucoes = new LinhaControle[70]; 
 													//portas												          jump-prox-ula   rwav  decode
 		instrucoes[ 0] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  1, ULA.INC, 0,0,0, 0}); //busca
 		instrucoes[ 1] = new LinhaControle(new byte[]{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0, 0,  2, ULA.NDA, 1,0,1, 0});
@@ -72,7 +72,15 @@ public class Firmware {
 		instrucoes[60] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.SUB, 0,0,0, 3});
 		instrucoes[61] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 62, ULA.NDA, 0,0,0, 1}); //cmp reg,reg
 		instrucoes[62] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.SUB, 0,0,0, 3});
-		instrucoes[63] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.SUB, 0,0,0, 3}); //mul num
+		instrucoes[63] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0, 0, 64, ULA.NDA, 0,0,0, 0}); //mul num
+		instrucoes[64] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 22, ULA.MUL, 0,0,0, 1});
+		instrucoes[65] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0, 0, 66, ULA.NDA, 0,0,0, 0}); //div num
+		instrucoes[66] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 67, ULA.DIV, 0,0,0, 0});
+		instrucoes[67] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 68, ULA.NDA, 0,0,0, 0});
+		instrucoes[68] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0, 0, 69, ULA.NDA, 0,0,0, 0});
+		instrucoes[69] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 29, ULA.MOD, 0,0,0, 0});
+		
+		
 	}
 
 	public Firmware(){
