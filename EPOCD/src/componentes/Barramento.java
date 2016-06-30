@@ -1,7 +1,8 @@
-package model;
+package componentes;
 
 import halp.Observer;
 import halp.Subject;
+import model.Palavra;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -34,7 +34,7 @@ public class Memoria implements Componente{
 	@Override
 	public void setPalavra(Palavra palavra, int idPorta) {
 		if(av && !endOk){
-			address = Integer.parseInt(palavra.bitString());
+			address = palavra.getIntValue();
 			endOk = true; //pra habilitar o write
 		} else if(w){
 			valor = palavra;

@@ -1,19 +1,24 @@
 package componentes;
 
-import java.util.Arrays;
+
+import model.RegCode;
 
 public class RegistradorUtilizavel extends Registrador {
-	private byte[] id;
-	public RegistradorUtilizavel(String nome, String codigo,byte[] id) {
+	private RegCode id;
+	public RegistradorUtilizavel(String nome, String codigo,RegCode id) {
 		super(nome, codigo);
 		this.id = id;
+	}
+	
+	public RegCode getID(){
+		return id;
 	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Arrays.hashCode(id);
+		result = prime * result + id.hashCode();
 		return result;
 	}
 	
@@ -26,7 +31,7 @@ public class RegistradorUtilizavel extends Registrador {
 		if (getClass() != obj.getClass())
 			return false;
 		RegistradorUtilizavel other = (RegistradorUtilizavel) obj;
-		if (!Arrays.equals(id, other.id))
+		if (!this.id.equals(other.id))
 			return false;
 		return true;
 	}

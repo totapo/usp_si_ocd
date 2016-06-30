@@ -1,10 +1,11 @@
-package model;
+package componentes;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import halp.Observer;
 import halp.Subject;
+import model.Componente;
 
 
 public class Porta implements Observer, Subject{ 
