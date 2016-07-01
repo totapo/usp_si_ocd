@@ -107,47 +107,47 @@ public class UnidadeControle implements Subject{
 		Entrada p2 saida p1 6
 		*/
 		switch(atual.getDecode()){
-		case 1: 
-			RegistradorUtilizavel a = regsUtilizaveis.get(new RegCode(ir.getP1().getBits(0, 3)));
-			if(a!=null){
-				portas[Integer.parseInt(a.getCodigo().substring(4, 6))]=1; //saida p1
-			}else throw new Exception("Registrador invalido");
-			break;
-		case 2:
-			a = regsUtilizaveis.get(new RegCode(ir.getP1().getBits(0, 3)));
-			if(a!=null){
-				portas[Integer.parseInt(a.getCodigo().substring(1, 3))]=1; //entrada p1
-			}else throw new Exception("Registrador invalido");
-			break;
-		case 3:
-			a = regsUtilizaveis.get(new RegCode(ir.getP2().getBits(0, 3)));
-			if(a!=null){
-				portas[Integer.parseInt(a.getCodigo().substring(4, 6))]=1; //saida p2
-			}else throw new Exception("Registrador invalido");
-			break;
-		case 4: 
-			a = regsUtilizaveis.get(new RegCode(ir.getP2().getBits(0, 3)));
-			if(a!=null){
-				portas[Integer.parseInt(a.getCodigo().substring(1, 3))]=1; //entrada p2
-			}else throw new Exception("Registrador invalido");
-			break;
-		case 5: 
-			a = regsUtilizaveis.get(new RegCode(ir.getP1().getBits(0, 3)));
-			RegistradorUtilizavel b = regsUtilizaveis.get(new RegCode(ir.getP2().getBits(0, 3)));
-			if(a!=null && b !=null){
-				portas[Integer.parseInt(a.getCodigo().substring(1, 3))]=1; //entrada p1
-				portas[Integer.parseInt(b.getCodigo().substring(4, 6))]=1; //saida p2
-			}else throw new Exception("Registrador invalido");
-			break;
-		case 6: 
-			a = regsUtilizaveis.get(new RegCode(ir.getP1().getBits(0, 3)));
-			b = regsUtilizaveis.get(new RegCode(ir.getP2().getBits(0, 3)));
-			if(a!=null && b !=null){
-				portas[Integer.parseInt(b.getCodigo().substring(1, 3))]=1; //entrada p2
-				portas[Integer.parseInt(a.getCodigo().substring(4, 6))]=1; //saida p1
-			} else throw new Exception("Registrador invalido");
-			break;
-		default:break;
+			case 1: 
+				RegistradorUtilizavel a = regsUtilizaveis.get(new RegCode(ir.getP1().getBits(0, 3)));
+				if(a!=null){
+					portas[Integer.parseInt(a.getCodigo().substring(4, 6))]=1; //saida p1
+				}else throw new Exception("Registrador invalido");
+				break;
+			case 2:
+				a = regsUtilizaveis.get(new RegCode(ir.getP1().getBits(0, 3)));
+				if(a!=null){
+					portas[Integer.parseInt(a.getCodigo().substring(1, 3))]=1; //entrada p1
+				}else throw new Exception("Registrador invalido");
+				break;
+			case 3:
+				a = regsUtilizaveis.get(new RegCode(ir.getP2().getBits(0, 3)));
+				if(a!=null){
+					portas[Integer.parseInt(a.getCodigo().substring(4, 6))]=1; //saida p2
+				}else throw new Exception("Registrador invalido");
+				break;
+			case 4: 
+				a = regsUtilizaveis.get(new RegCode(ir.getP2().getBits(0, 3)));
+				if(a!=null){
+					portas[Integer.parseInt(a.getCodigo().substring(1, 3))]=1; //entrada p2
+				}else throw new Exception("Registrador invalido");
+				break;
+			case 5: 
+				a = regsUtilizaveis.get(new RegCode(ir.getP1().getBits(0, 3)));
+				RegistradorUtilizavel b = regsUtilizaveis.get(new RegCode(ir.getP2().getBits(0, 3)));
+				if(a!=null && b !=null){
+					portas[Integer.parseInt(a.getCodigo().substring(1, 3))]=1; //entrada p1
+					portas[Integer.parseInt(b.getCodigo().substring(4, 6))]=1; //saida p2
+				}else throw new Exception("Registrador invalido");
+				break;
+			case 6: 
+				a = regsUtilizaveis.get(new RegCode(ir.getP1().getBits(0, 3)));
+				b = regsUtilizaveis.get(new RegCode(ir.getP2().getBits(0, 3)));
+				if(a!=null && b !=null){
+					portas[Integer.parseInt(b.getCodigo().substring(1, 3))]=1; //entrada p2
+					portas[Integer.parseInt(a.getCodigo().substring(4, 6))]=1; //saida p1
+				} else throw new Exception("Registrador invalido");
+				break;
+			default:break;
 		}
 		
 		mem.setFlags(atual.getRWAV());		//manda as flags pra memoria
@@ -157,12 +157,12 @@ public class UnidadeControle implements Subject{
 		ula.setOperacao(atual.getULA());	//manda codigo pra ula se tiver e, caso haja, ela ja calcula
 		
 		//pega as configuracoes da operacao atual
+		
+		ponteiro = atual.getProx(); //seta a proxima linha do firmware que será executada
+
 		byte[] cfg = CodeCfgs.get(operacao.getCode());
-		if(cfg==null) throw new Exception("OpCode invalido "+operacao.getCode());
-		
-		ponteiro = atual.getProx(); //seta a proxima linha do firmware
-		
-		if(ponteiro==-1){ 					//ve se tem indirecao na instrucao do ir
+		if(ponteiro==-1){ //ve se tem indirecao na instrucao do ir
+			if(cfg==null) throw new Exception("OpCode invalido "+operacao.getCode());
 			switch(cfg[2]){
 				case 1: ponteiro = inNumP2; break;
 				case 2: ponteiro = inRegP2; break;
@@ -170,6 +170,7 @@ public class UnidadeControle implements Subject{
 				default: ponteiro = execucao;
 			}
 		} else if(ponteiro==-2){ 			//determina pulo pelo opcode do ir
+			if(cfg==null) throw new Exception("OpCode invalido "+operacao.getCode());
 			if(cfg[2]==4)
 				switch(cfg[3]){ //se as condicoes do jump nao foram atingidas comeca o ciclo de busca normalmente
 					case 0: //jl
@@ -202,7 +203,6 @@ public class UnidadeControle implements Subject{
 	public void advanceClock() throws Exception{
 		executeMicroInstruction();
 	}
-	
 	
 	private List<Observer> observers;
 	
