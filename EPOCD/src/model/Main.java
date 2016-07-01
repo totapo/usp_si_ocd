@@ -71,7 +71,7 @@ public class Main {
 		bRegs = new Barramento();
 		bExterno = new Barramento();
 		
-		//portas ula ac
+		//portas ula ac adicionar portas de saida como observadoras da UC primeiro (pra n cagar mov ax,ax) TODO
 		//Porta outUla = new Porta(false,17,bUlaAc,);
 	}
 }
