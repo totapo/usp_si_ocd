@@ -3,6 +3,7 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
+import view.Tela;
 import componentes.Barramento;
 import componentes.IR;
 import componentes.Memoria;
@@ -19,20 +20,24 @@ public class Main {
 	private List<Barramento> barramentos;
 	
 	public static void main(String[] args){
-		Tradutor t = Tradutor.instanceOf();
+		/*Tradutor t = Tradutor.instanceOf();
 		
 		try {
 			System.out.println(t.traduzir("mov ax,bx"));
 			System.out.println(t.traduzir("mov ax,1500"));
+			System.out.println(t.traduzir("cmp 2,1500"));
+			System.out.println(t.traduzir("mov ax,[ax]"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		*/
 		new Main();
 	}
 	
 	public Main(){
-		//initComponentes();
+		Tradutor t = Tradutor.instanceOf();
+		initComponentes();
+		Tela a = new Tela();
 	}
 
 	private void initComponentes() {
@@ -71,7 +76,39 @@ public class Main {
 		bRegs = new Barramento();
 		bExterno = new Barramento();
 		
-		//portas ula ac adicionar portas de saida como observadoras da UC primeiro (pra n cagar mov ax,ax) TODO
-		//Porta outUla = new Porta(false,17,bUlaAc,);
+		//portas ula ac adicionar portas de saida como observadoras da UC primeiro (pra n cagar mov ax,ax) 
+		new Porta(false,1 ,bExterno,MAR,UC);
+		new Porta(false,3 ,bRegs,MBR,UC);
+		new Porta(false,9 ,bExterno,MBR,UC);
+		new Porta(false,5 ,bRegs,IR,UC);
+		new Porta(false,7 ,bRegs,P1,UC);
+		new Porta(false,11,bRegs,P2,UC);
+		new Porta(false,13,bRegs,PC,UC);
+		new Porta(false,15,bUlaX,X,UC);
+		new Porta(false,17,bUlaAC,ULA,UC);
+		new Porta(false,19,bRegs,AC,UC);
+		new Porta(false,21,bRegs,AX,UC);
+		new Porta(false,23,bRegs,BX,UC);
+		new Porta(false,25,bRegs,CX,UC);
+		new Porta(false,27,bRegs,DX,UC);
+		new Porta(false,29,bExterno,Me,UC);
+		new Porta(false,31,bRegs,DS,UC);
+		
+		new Porta(true,0 ,bExterno,MAR,UC);
+		new Porta(true,2 ,bRegs,MBR,UC);
+		new Porta(true,8 ,bExterno,MBR,UC);
+		new Porta(true,4 ,bRegs,IR,UC);
+		new Porta(true,6 ,bRegs,P1,UC);
+		new Porta(true,10,bRegs,P2,UC);
+		new Porta(true,12,bRegs,PC,UC);
+		new Porta(true,14,bUlaX,X,UC);
+		new Porta(true,16,bUlaAC,ULA,UC);
+		new Porta(true,18,bRegs,AC,UC);
+		new Porta(true,20,bRegs,AX,UC);
+		new Porta(true,22,bRegs,BX,UC);
+		new Porta(true,24,bRegs,CX,UC);
+		new Porta(true,26,bRegs,DX,UC);
+		new Porta(true,28,bExterno,Me,UC);
+		new Porta(true,30,bRegs,DS,UC);
 	}
 }

@@ -3,7 +3,7 @@ package componentes;
 import model.Componente;
 import model.Palavra;
 
-public class ULA implements Componente{
+public class ULA extends Componente{
 	public static final byte NDA=0;
 	public static final byte ADD=1;
 	public static final byte SUB=2; //sub num2 por num1

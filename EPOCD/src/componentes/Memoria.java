@@ -6,13 +6,14 @@ import java.util.Map;
 import model.Componente;
 import model.Palavra;
 
-public class Memoria implements Componente{
+public class Memoria extends Componente{
 	boolean av,w,r,endOk;
 	Map<Integer,Palavra>palavras;
 	
 	private int address;
 	private Palavra valor;
 	private String cod;
+	
 	public Memoria(String cod){
 		this.palavras = new HashMap<Integer,Palavra>();
 		av = r = w = endOk = false;

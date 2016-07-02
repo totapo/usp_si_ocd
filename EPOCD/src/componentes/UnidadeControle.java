@@ -156,7 +156,6 @@ public class UnidadeControle implements Subject{
 		
 		ula.setOperacao(atual.getULA());	//manda codigo pra ula se tiver e, caso haja, ela ja calcula
 		
-		//pega as configuracoes da operacao atual
 		
 		ponteiro = atual.getProx(); //seta a proxima linha do firmware que será executada
 
