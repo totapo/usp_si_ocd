@@ -12,6 +12,7 @@ import componentes.Registrador;
 import componentes.RegistradorUtilizavel;
 import componentes.ULA;
 import componentes.UnidadeControle;
+import controller.Controller;
 
 public class Main {
 	
@@ -37,7 +38,7 @@ public class Main {
 	public Main(){
 		Tradutor t = Tradutor.instanceOf();
 		initComponentes();
-		Tela a = new Tela();
+		Tela a = new Tela(new Controller());
 	}
 
 	private void initComponentes() {
