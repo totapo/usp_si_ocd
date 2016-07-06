@@ -40,6 +40,7 @@ public class Main {
 		Tradutor t = Tradutor.instanceOf();
 		initComponentes();
 		TelaPrincipal a = new TelaPrincipal();
+		//Tela b = new Tela(new Controller());
 	}
 
 	private void initComponentes() {
