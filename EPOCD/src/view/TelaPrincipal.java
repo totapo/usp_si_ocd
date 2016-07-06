@@ -30,8 +30,9 @@ public class TelaPrincipal extends JFrame {
 	private JTable tabelaControle;
 	private Controller ctrl;
 
-	public TelaPrincipal() {
+	public TelaPrincipal(Controller ctrl) {
 		iniciarComponentes();
+		this.ctrl = ctrl;
 		this.setVisible(true);
 	}
 
@@ -154,4 +155,112 @@ public class TelaPrincipal extends JFrame {
         
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public JTextField[] getTxtRegistradores() {
+		return txtRegistradores;
+	}
+
+	public int getAx() {
+		return ax;
+	}
+
+	public int getBx() {
+		return bx;
+	}
+
+	public int getCx() {
+		return cx;
+	}
+
+	public int getDx() {
+		return dx;
+	}
+
+	public int getIr() {
+		return ir;
+	}
+
+	public int getP1() {
+		return p1;
+	}
+
+	public int getP2() {
+		return p2;
+	}
+
+	public int getPc() {
+		return pc;
+	}
+
+	public int getDs() {
+		return ds;
+	}
+
+	public int getMar() {
+		return mar;
+	}
+
+	public int getMbr() {
+		return mbr;
+	}
+
+	public JPanel getPnlComandos() {
+		return pnlComandos;
+	}
+
+	public JPanel getPnlRegistradores() {
+		return pnlRegistradores;
+	}
+
+	public JPanel getPnlMemoria() {
+		return pnlMemoria;
+	}
+
+	public JPanel getPnlLinhasControle() {
+		return pnlLinhasControle;
+	}
+
+	public JButton getBtnTraduzir() {
+		return btnTraduzir;
+	}
+
+	public JButton getBtnClearCodigo() {
+		return btnClearCodigo;
+	}
+
+	public JButton getBtnExecutaInstrucao() {
+		return btnExecutaInstrucao;
+	}
+
+	public JButton getBtnJmpMemoria() {
+		return btnJmpMemoria;
+	}
+
+	public JTextArea getCodigo() {
+		return codigo;
+	}
+
+	public JTextField getTxtJmpMemoria() {
+		return txtJmpMemoria;
+	}
+
+	public ArrayList<CelulaMemoria> getCelulas() {
+		return celulas;
+	}
+
+	public JTable getTabelaMemoria() {
+		return tabelaMemoria;
+	}
+
+	public JTable getTabelaControle() {
+		return tabelaControle;
+	}
+
+	public Controller getCtrl() {
+		return ctrl;
+	}
+	
 }

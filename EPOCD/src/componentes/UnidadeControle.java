@@ -89,6 +89,10 @@ public class UnidadeControle implements Subject{
 		}
 	}
 	
+	public int getPointer(){
+		return firm.getPointer();
+	}
+	
 	private void executeMicroInstruction() throws Exception{
 		byte ponteiro;
 		atual = firm.getInstruction();
