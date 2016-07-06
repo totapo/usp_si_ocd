@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import view.Tela;
+import view.TelaPrincipal;
 import componentes.Barramento;
 import componentes.IR;
 import componentes.Memoria;
@@ -22,7 +23,6 @@ public class Main {
 	
 	public static void main(String[] args){
 		/*Tradutor t = Tradutor.instanceOf();
-		
 		try {
 			System.out.println(t.traduzir("mov ax,bx"));
 			System.out.println(t.traduzir("mov ax,1500"));
@@ -33,12 +33,13 @@ public class Main {
 		}
 		*/
 		new Main();
+		
 	}
 	
 	public Main(){
 		Tradutor t = Tradutor.instanceOf();
 		initComponentes();
-		Tela a = new Tela(new Controller());
+		TelaPrincipal a = new TelaPrincipal();
 	}
 
 	private void initComponentes() {

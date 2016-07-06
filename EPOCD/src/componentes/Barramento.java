@@ -10,6 +10,7 @@ import java.util.List;
 //Podemos ter apenas duas instâncias de barramento, uma pra uc e registradores
 //e outra pra acesso a memoria e tal
 public class Barramento implements Subject{
+	
 	private Palavra palavraAtual;
 	
 	public Barramento(){	
