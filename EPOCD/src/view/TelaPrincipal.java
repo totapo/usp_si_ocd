@@ -1,6 +1,8 @@
 package view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -67,8 +69,15 @@ public class TelaPrincipal extends JFrame {
 		this.getContentPane().add(pnlLinhasControle);
 		
 		//Criando Compoenentes para os comandos
-		codigo = new JTextArea();
-		codigo.setPreferredSize(new Dimension(560, 200));
+		JPanel p = new JPanel(new BorderLayout());
+		p.setPreferredSize(new Dimension(545,200));
+		codigo = new JTextArea("");
+		codigo.setLineWrap(true);
+		codigo.setWrapStyleWord(true);
+		JScrollPane scrollCodigo = new JScrollPane(codigo);
+		scrollCodigo.setPreferredSize(new Dimension(545, 200));
+		scrollCodigo.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		p.add(scrollCodigo,BorderLayout.PAGE_START);
 		
 		btnTraduzir = new JButton("Traduzir");
 		//TODO adiciona listeners
@@ -82,7 +91,7 @@ public class TelaPrincipal extends JFrame {
 		//TODO adiciona listeners
 		btnClearCodigo.setSize(50, 20);
 		
-		pnlComandos.add(codigo);
+		pnlComandos.add(p);
 		pnlComandos.add(btnTraduzir);
 		pnlComandos.add(btnExecutaInstrucao);
 		pnlComandos.add(btnClearCodigo);
