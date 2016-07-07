@@ -1,7 +1,7 @@
 package componentes;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import model.Componente;
 import model.Palavra;
@@ -15,7 +15,7 @@ public class Memoria extends Componente{
 	private String cod;
 	
 	public Memoria(String cod){
-		this.palavras = new HashMap<Integer,Palavra>();
+		this.palavras = new TreeMap<Integer,Palavra>();
 		av = r = w = endOk = false;
 		this.cod = cod;
 	}
@@ -24,11 +24,16 @@ public class Memoria extends Componente{
 		return cod;
 	}
 	
+	public Map<Integer,Palavra> getMap(){
+		return palavras;
+	}
+	
 	public void setFlags(byte[] flags){
 		if(flags.length==3){
 			r  = flags[0]==1;
 			w  = flags[1]==1;
 			av = flags[2]==1;
+			//System.out.println("R "+r+" W "+w+" AV "+av);
 		}
 	}
 
@@ -36,8 +41,8 @@ public class Memoria extends Componente{
 	public void setPalavra(Palavra palavra, int idPorta) {
 		if(av && !endOk){
 			address = palavra.getIntValue();
-			endOk = true; //pra habilitar o write
-		} else if(w){
+			endOk = true; //pra habilitar o write e o read
+		} else if(w && av){
 			valor = palavra;
 			palavras.put(address,valor);
 			endOk=false;
@@ -48,12 +53,14 @@ public class Memoria extends Componente{
 	public Palavra getPalavra() {
 		if(av && endOk && r){
 			valor = palavras.get(address);
-			endOk=false;
 		}
+		endOk=false;
 		if(valor==null) return new Palavra();
 		return valor;
 	}
 	
-	
+	public void insere(int posicao, Palavra val){
+		palavras.put(posicao,val);
+	}
 	
 }

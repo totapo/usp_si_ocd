@@ -11,13 +11,13 @@ public class Firmware {
 													//portas												          jump-prox-ula   rwav  decode
 		instrucoes[ 0] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  1, ULA.INC, 0,0,0, 0}); //busca
 		instrucoes[ 1] = new LinhaControle(new byte[]{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0, 0,  2, ULA.NDA, 1,0,1, 0});
-		instrucoes[ 2] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0, 0,  3, ULA.NDA, 0,0,0, 0});
+		instrucoes[ 2] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0, 0,  3, ULA.NDA, 1,0,1, 0});
 		instrucoes[ 3] = new LinhaControle(new byte[]{0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, -1, ULA.NDA, 0,0,0, 0}); //decisao de indirecao ou execucao
 		instrucoes[ 4] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  5, ULA.NDA, 0,0,0, 0}); //indirecao tipo [num] no p2 do ir
 		instrucoes[ 5] = new LinhaControle(new byte[]{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0, 0,  6, ULA.NDA, 1,0,1, 0}); 
-		instrucoes[ 6] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0, 0,  7, ULA.NDA, 0,0,0, 0}); 
+		instrucoes[ 6] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0, 0,  7, ULA.NDA, 1,0,1, 0}); 
 		instrucoes[ 7] = new LinhaControle(new byte[]{0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 10, ULA.NDA, 0,0,0, 0}); 
-		instrucoes[ 8] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  5, ULA.NDA, 0,0,0, 3}); //indirecao tipo [reg] no p2 do ir
+		instrucoes[ 8] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  4, ULA.NDA, 0,0,0, 3}); //indirecao tipo [reg] no p2 do ir
 		instrucoes[ 9] = new LinhaControle(new byte[]{0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 10, ULA.NDA, 0,0,0, 1}); //indirecao tipo [reg] no p1 do ir
 		instrucoes[10] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, -2, ULA.NDA, 0,0,0, 0}); //decisao do pulo baseado no opcode
 		instrucoes[11] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 12, ULA.NDA, 0,0,0, 1}); //add reg,reg
@@ -55,14 +55,14 @@ public class Firmware {
 		instrucoes[43] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 44, ULA.NDA, 0,0,0, 0});
 		instrucoes[44] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.NDA, 0,0,0, 2});
 		instrucoes[45] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.NDA, 0,0,0, 2}); //mov reg,num
-		instrucoes[46] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 47, ULA.NDA, 0,0,0, 0}); //mov mem num
-		instrucoes[47] = new LinhaControle(new byte[]{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0, 0, 48, ULA.NDA, 0,1,1, 0});
-		instrucoes[48] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0, 0,  0, ULA.NDA, 0,0,0, 0});
+		instrucoes[46] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 47, ULA.NDA, 0,0,0, 0}); //mov mem num
+		instrucoes[47] = new LinhaControle(new byte[]{0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0, 0, 48, ULA.NDA, 0,1,1, 0});
+		instrucoes[48] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0, 0,  0, ULA.NDA, 0,1,1, 0});
 		instrucoes[49] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 47, ULA.NDA, 0,0,0, 1}); //mov mem reg
 		instrucoes[50] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.NDA, 0,0,0, 0}); //jumps, todos
 		instrucoes[51] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 52, ULA.NDA, 0,0,0, 0}); //mov reg,mem
 		instrucoes[52] = new LinhaControle(new byte[]{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0, 0, 53, ULA.NDA, 1,0,1, 0});
-		instrucoes[53] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0, 0, 54, ULA.NDA, 0,0,0, 0});
+		instrucoes[53] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0, 0, 54, ULA.NDA, 1,0,1, 0});
 		instrucoes[54] = new LinhaControle(new byte[]{0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.NDA, 0,0,0, 1});
 		instrucoes[55] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 56, ULA.NDA, 0,0,0, 0}); //cmp num,num
 		instrucoes[56] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.SUB, 0,0,0, 0});

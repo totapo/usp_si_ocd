@@ -16,7 +16,7 @@ public class Palavra {
 	public Palavra(int resp) {
 		this.bits = new byte[qtdBitsPalavra];
 		String s = Integer.toBinaryString(resp);
-		System.out.println(resp+"\n"+s);
+		//System.out.println(resp+"\n"+s);
 		int cont=31;
 		for(int i=s.length()-1; i>=0; i--){
 			bits[cont--] = (byte) ((s.charAt(i)=='1')?1:0);

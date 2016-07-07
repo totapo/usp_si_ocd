@@ -22,20 +22,20 @@ public class IR extends Registrador{
 			p1.setPalavra(mem, -1);
 			break;
 		case 1:
-			p1.setPalavra(new Palavra(mem,0,2), -1);
-			p2.setPalavra(new Palavra(mem,3,Palavra.qtdBitsPalavra-1), -1);
+			p1.setPalavra(new Palavra(mem,5,7), -1);
+			p2.setPalavra(new Palavra(mem,8,Palavra.qtdBitsPalavra-1), -1);
 			break;
 		case 2:
-			p2.setPalavra(new Palavra(mem,0,2), -1);
-			p1.setPalavra(new Palavra(mem,3,Palavra.qtdBitsPalavra-1), -1);
+			p2.setPalavra(new Palavra(mem,5,7), -1);
+			p1.setPalavra(new Palavra(mem,8,Palavra.qtdBitsPalavra-1), -1);
 			break;
 		case 3:
-			p1.setPalavra(new Palavra(mem,0,2), -1);
-			p2.setPalavra(new Palavra(mem,3,5), -1);
+			p1.setPalavra(new Palavra(mem,5,7), -1);
+			p2.setPalavra(new Palavra(mem,8,10), -1);
 			break;
 		case 4:
 			int fim = (Palavra.qtdBitsPalavra/2)-1;
-			p1.setPalavra(new Palavra(mem,0,fim), -1);
+			p1.setPalavra(new Palavra(mem,5,fim), -1);
 			p2.setPalavra(new Palavra(mem,fim+1,Palavra.qtdBitsPalavra-1), -1);
 			break;
 		default:

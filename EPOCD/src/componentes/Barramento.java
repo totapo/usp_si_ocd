@@ -31,11 +31,13 @@ public class Barramento implements Subject{
 	}
 
 	public Palavra getPalavra() {
+		//System.out.println("Pediram: " +palavraAtual.getIntValue());
 		return palavraAtual;
 	}
 
 	public void setPalavra(Palavra p) {
 		palavraAtual = p;
+		//System.out.println("Setaram: " +p.getIntValue());
 		notifyObservers();
 	}
 }

@@ -32,7 +32,7 @@ public class ULA extends Componente{
 	}
 	
 	public void setOperacao(byte b) throws Exception{
-		if(b>=0 && b<=7){
+		if(b>=1 && b<=7){
 			operacao = b;
 			calc();
 		}
@@ -76,16 +76,19 @@ public class ULA extends Componente{
 		flags[0]=(byte)((resp==0)?1:0); //flag 0
 		flags[1]=(byte)((resp>=0)?0:1); //flag sinal
 		resultado = new Palavra(resp);
+		System.out.println(resultado);
 	}
 
 	@Override
 	public void setPalavra(Palavra palavra, int idPorta) { //utilizado pela porta
 		if(idPorta==15)num2 = palavra;
 		else num1 = palavra;
+		//System.out.println("Rolou "+num1+" "+num2+" "+idPorta);
 	}
 
 	@Override
 	public Palavra getPalavra() {
+		//System.out.println("Pediram resultado");
 		return resultado;
 	}
 }

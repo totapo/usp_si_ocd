@@ -31,9 +31,9 @@ public class Porta implements Observer, Subject{
 	public void notify(Subject s) {
 		if(s instanceof UnidadeControle){
 			this.aberta = ((UnidadeControle) s).getStatus(id);
-			if(aberta){
-				if(in) c.setPalavra(barramento.getPalavra(),id);
-				else barramento.setPalavra(c.getPalavra());
+			if(aberta && ((UnidadeControle) s).podeAtualizar()){
+				//if(in) c.setPalavra(barramento.getPalavra(),id);
+				if(!in) barramento.setPalavra(c.getPalavra());
 			}
 			notifyObservers();
 		} else if(s instanceof Barramento){

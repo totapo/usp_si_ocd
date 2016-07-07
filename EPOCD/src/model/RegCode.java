@@ -6,7 +6,7 @@ public class RegCode {
 private byte[] code;
 	
 	public RegCode(Palavra mem){
-		this.code = Arrays.copyOfRange(mem.getBits(),0,3);
+		this.code = Arrays.copyOfRange(mem.getBits(),29,31);
 	}
 	
 	public RegCode(byte[] b){
@@ -15,6 +15,11 @@ private byte[] code;
 	
 	public byte[] getCode(){
 		return code;
+	}
+	
+	@Override
+	public String toString(){
+		return Arrays.toString(code);
 	}
 
 	@Override

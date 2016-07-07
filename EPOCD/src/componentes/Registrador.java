@@ -18,6 +18,7 @@ public class Registrador extends Componente implements Subject{
 		this.nome = nome;
 		this.codigo = codigo;
 		observers = new LinkedList<Observer>();
+		mem = new Palavra();
 	}
 
 	public String getNome() {
@@ -55,5 +56,8 @@ public class Registrador extends Componente implements Subject{
 			o.notify(this);
 	}
 	
+	public void reset(){
+		this.mem = new Palavra();
+	}
 	
 }

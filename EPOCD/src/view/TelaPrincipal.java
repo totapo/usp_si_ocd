@@ -3,11 +3,15 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 
+import componentes.Memoria;
 import controller.Controller;
 
 public class TelaPrincipal extends JFrame {
@@ -18,7 +22,7 @@ public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField[] txtRegistradores;
-	private final int ax = 0, bx = 1, cx = 2, dx = 3, ir = 4, p1 = 5, p2 = 6, pc = 7,  ds = 8, mar = 9, mbr = 10;
+	public final int ax = 0, bx = 1, cx = 2, dx = 3, ir = 4, p1 = 5, p2 = 6, pc = 7,  ds = 8, mar = 9, mbr = 10;
 	private JPanel pnlComandos, pnlRegistradores, pnlMemoria, pnlLinhasControle;
 	private JButton btnTraduzir;
 	private JButton btnClearCodigo;
@@ -32,43 +36,64 @@ public class TelaPrincipal extends JFrame {
 	private Controller ctrl;
 
 	public TelaPrincipal(Controller ctrl) {
-		iniciarComponentes();
 		this.ctrl = ctrl;
+		iniciarComponentes();
 		this.setVisible(true);
 	}
 
 	public void iniciarComponentes() {
 		// Criando a janela
 		this.setTitle("Assembly Compiler Simulator");
-		this.getContentPane().setLayout(null);
+		this.getContentPane().setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1000, 680);
+		this.setSize(1100, 680);
 		
 		// Criando os paineis
+		JPanel leftPanel = new JPanel();
+		leftPanel.setLayout(new BoxLayout(leftPanel,BoxLayout.Y_AXIS));
+		leftPanel.setPreferredSize(new Dimension(580,600));
+		
+		JPanel rightPanel = new JPanel();
+		rightPanel.setLayout(new BoxLayout(rightPanel,BoxLayout.Y_AXIS));
+		rightPanel.setPreferredSize(new Dimension(380,600));
+		
 		pnlComandos = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 		pnlComandos.setBorder(BorderFactory.createTitledBorder("Comandos Assembly"));
-		pnlComandos.setBounds(10, 10, 580, 300);
+		pnlComandos.setPreferredSize(new Dimension( 580, 300));
 		pnlComandos.setVisible(true);
-		this.getContentPane().add(pnlComandos);
 		
-		pnlRegistradores = new JPanel(new FlowLayout());
-		pnlRegistradores.setBorder(BorderFactory.createTitledBorder("Registradores"));
-		pnlRegistradores.setBounds(600, 10, 380, 300);
-		pnlRegistradores.setVisible(true);
-		((FlowLayout)pnlRegistradores.getLayout()).setAlignment(FlowLayout.LEFT);
-		this.getContentPane().add(pnlRegistradores);
-		
-		pnlMemoria = new JPanel(new BorderLayout());
-		pnlMemoria.setBorder(BorderFactory.createTitledBorder("Memória"));
-		pnlMemoria.setBounds(600, 320, 380, 300);
-		pnlMemoria.setVisible(true);
-		this.getContentPane().add(pnlMemoria);
 		
 		pnlLinhasControle = new JPanel(new BorderLayout());
 		pnlLinhasControle.setBorder(BorderFactory.createTitledBorder("Linhas de Controle"));
-		pnlLinhasControle.setBounds(10, 320, 580, 300);
+		pnlLinhasControle.setPreferredSize(new Dimension( 580, 300));
 		pnlLinhasControle.setVisible(true);
-		this.getContentPane().add(pnlLinhasControle);
+		//this.getContentPane().add(pnlLinhasControle);
+		
+		leftPanel.add(pnlComandos, BorderLayout.LINE_START);
+		leftPanel.add(pnlLinhasControle, BorderLayout.CENTER);
+		this.getContentPane().add(leftPanel, BorderLayout.LINE_START);
+		
+		pnlRegistradores = new JPanel(new FlowLayout());
+		pnlRegistradores.setBorder(BorderFactory.createTitledBorder("Registradores"));
+		pnlRegistradores.setPreferredSize(new Dimension( 380, 300));
+		pnlRegistradores.setVisible(true);
+		GridLayout g = new GridLayout(0,4);
+		g.setVgap(10);
+		JPanel regs = new JPanel(g);
+		regs.setPreferredSize(new Dimension( 500, 180));
+		pnlRegistradores.add(regs);
+		((FlowLayout)pnlRegistradores.getLayout()).setAlignment(FlowLayout.LEFT);
+		//this.getContentPane().add(pnlRegistradores, BorderLayout.CENTER);
+		
+		pnlMemoria = new JPanel(new BorderLayout());
+		pnlMemoria.setBorder(BorderFactory.createTitledBorder("Memória"));
+		pnlMemoria.setPreferredSize(new Dimension(380, 300));
+		pnlMemoria.setVisible(true);
+		//this.getContentPane().add(pnlMemoria);
+		
+		rightPanel.add(pnlRegistradores, BorderLayout.LINE_START);
+		rightPanel.add(pnlMemoria, BorderLayout.CENTER);
+		this.getContentPane().add(rightPanel, BorderLayout.CENTER);
 		
 		//Criando Compoenentes para os comandos
 		JPanel p = new JPanel(new BorderLayout());
@@ -82,15 +107,18 @@ public class TelaPrincipal extends JFrame {
 		p.add(scrollCodigo,BorderLayout.PAGE_START);
 		
 		btnTraduzir = new JButton("Traduzir");
-		//TODO adiciona listeners
+		btnTraduzir.setActionCommand("Traduzir");
+		btnTraduzir.addActionListener(ctrl);
 		btnTraduzir.setSize(50, 20);
 		
 		btnExecutaInstrucao = new JButton("Executa Instrução");
-		//TODO adiciona listeners
+		btnExecutaInstrucao.setActionCommand("Executar");
+		btnExecutaInstrucao.addActionListener(ctrl);
 		btnExecutaInstrucao.setSize(50, 20);
 		
-		btnClearCodigo = new JButton("Limpar Código");
-		//TODO adiciona listeners
+		btnClearCodigo = new JButton("Limpar Memória");
+		btnClearCodigo.setActionCommand("Limpar");
+		btnClearCodigo.addActionListener(ctrl);
 		btnClearCodigo.setSize(50, 20);
 		
 		pnlComandos.add(p);
@@ -99,24 +127,21 @@ public class TelaPrincipal extends JFrame {
 		pnlComandos.add(btnClearCodigo);
 		
 		//Criando componentes para as linhas de controle
-		//TODO criar funcionalidade para a interface
-		String[][] valores;
-		String[] colunas;
 		
 		tabelaControle = new JTable(new LinhaControleModel());
 		tabelaControle.getColumnModel().getColumn(0).setPreferredWidth(460);
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+		tabelaControle.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+		tabelaControle.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+		tabelaControle.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+		tabelaControle.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+		tabelaControle.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
 		tabelaControle.setEnabled(false);
         JScrollPane barraRolagem = new JScrollPane(tabelaControle);
         pnlLinhasControle.add(barraRolagem); 
-        
-        //Criando componentes para a memoria
-        valores = new String[20][6];
-		valores[0][0] = "10000";
-		valores[0][1] = "34589820";
-		colunas = new String[]{"Endereco","Valor"};
 		
-		tabelaMemoria = new JTable(valores, colunas);
-		tabelaMemoria.getColumnModel().getColumn(0).setPreferredWidth(70);
+		tabelaMemoria = new JTable();
 		tabelaMemoria.setEnabled(false);
         JScrollPane barraRolagemMemoria = new JScrollPane(tabelaMemoria);
         
@@ -137,20 +162,24 @@ public class TelaPrincipal extends JFrame {
         txtRegistradores = new JTextField[11];
         JLabel[] lblRegs = new JLabel[11];
         String[] nomesRegs = new String[]{"ax", "bx", "cx", "dx", "ir", "p1", "p2", "pc",  "ds", "mar", "mbr"};
-        JSeparator separator;
+        JPanel aux;
         for(int i = 0; i <= 10; i++){
-        	if(i == 4 || i == 7 || i == 9){
-        		separator = new JSeparator(SwingConstants.HORIZONTAL);
-        		separator.setPreferredSize(new Dimension(pnlRegistradores.getWidth() - 25, 2));
-        		pnlRegistradores.add(separator);
-        	}
+        	aux = new JPanel();
+        	aux.setLayout(new BoxLayout(aux,BoxLayout.X_AXIS));
         	txtRegistradores[i] = new JTextField();
-        	txtRegistradores[i].setPreferredSize(new Dimension(50,30));
+        	txtRegistradores[i].setPreferredSize(new Dimension(55,30));
         	txtRegistradores[i].setEnabled(false);
         	lblRegs[i] = new JLabel(nomesRegs[i].toUpperCase());
         	lblRegs[i].setPreferredSize(new Dimension(30,30));
-        	pnlRegistradores.add(lblRegs[i]);
-        	pnlRegistradores.add(txtRegistradores[i]);
+        	aux.add(lblRegs[i]);
+        	aux.add(txtRegistradores[i]);
+        	regs.add(aux);
+        	if(i == 6){
+        		regs.add(new JPanel()); //pra encher o espaço xD
+        	} else if(i==8){
+        		regs.add(new JPanel()); //pra encher o espaço xD
+        		regs.add(new JPanel()); //pra encher o espaço xD
+        	}
         }
         
 	}
@@ -166,50 +195,6 @@ public class TelaPrincipal extends JFrame {
 
 	public JTextField[] getTxtRegistradores() {
 		return txtRegistradores;
-	}
-
-	public int getAx() {
-		return ax;
-	}
-
-	public int getBx() {
-		return bx;
-	}
-
-	public int getCx() {
-		return cx;
-	}
-
-	public int getDx() {
-		return dx;
-	}
-
-	public int getIr() {
-		return ir;
-	}
-
-	public int getP1() {
-		return p1;
-	}
-
-	public int getP2() {
-		return p2;
-	}
-
-	public int getPc() {
-		return pc;
-	}
-
-	public int getDs() {
-		return ds;
-	}
-
-	public int getMar() {
-		return mar;
-	}
-
-	public int getMbr() {
-		return mbr;
 	}
 
 	public JPanel getPnlComandos() {
@@ -264,8 +249,19 @@ public class TelaPrincipal extends JFrame {
 		return tabelaControle;
 	}
 
-	public Controller getCtrl() {
-		return ctrl;
+	public void setMemoryModel(Memoria memoria) {
+		this.tabelaMemoria.setModel(new MemoriaModel(memoria));
+		tabelaMemoria.getColumnModel().getColumn(0).setPreferredWidth(70);
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+		tabelaMemoria.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
+		tabelaMemoria.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+	}
+
+	public void atualizaMem() {
+		((MemoriaModel)this.tabelaMemoria.getModel()).update();
+		tabelaMemoria.repaint();
+		tabelaMemoria.revalidate();
 	}
 	
 }

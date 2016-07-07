@@ -6,7 +6,7 @@ public class OpCode {
 	private byte[] code;
 	
 	public OpCode(Palavra mem){
-		this.code = Arrays.copyOfRange(mem.getBits(),0,6);
+		this.code = Arrays.copyOfRange(mem.getBits(),0,5);
 	}
 	
 	public OpCode(byte[] b){
@@ -15,6 +15,11 @@ public class OpCode {
 	
 	public byte[] getCode(){
 		return code;
+	}
+	
+	@Override
+	public String toString(){
+		return Arrays.toString(code);
 	}
 
 	@Override

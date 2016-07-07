@@ -1,23 +1,17 @@
 package controller;
 
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 import view.TelaPrincipal;
 import model.*;
 import componentes.*;
 
-public class Controller implements WindowListener,ActionListener,MouseListener{
+public class Controller implements ActionListener{
 	
 	private UnidadeControle UC;
 	private Memoria memoria;
@@ -30,10 +24,32 @@ public class Controller implements WindowListener,ActionListener,MouseListener{
 		t = Tradutor.instanceOf();
 		initComponents();
 		tela = new TelaPrincipal(this);
-		tela.atualizaSelecaoLinhaControle(UC.getPointer());
+		tela.setMemoryModel(memoria);
+		this.atualizarExibicao();
+		
 	}
 	
 	
+
+	private void atualizarExibicao() {
+		tela.getTxtRegistradores()[tela.mar].setText(mar.getPalavra().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.mbr].setText(mbr.getPalavra().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.ir].setText(ir.getPalavra().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.p1].setText(p1.getPalavra().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.p2].setText(p2.getPalavra().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.pc].setText(pc.getPalavra().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.ax].setText(ax.getPalavra().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.bx].setText(bx.getPalavra().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.cx].setText(cx.getPalavra().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.dx].setText(dx.getPalavra().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.ds].setText(ds.getPalavra().getIntValue()+"");
+		
+		tela.atualizaSelecaoLinhaControle(UC.getPointer());
+
+		tela.atualizaMem();
+	}
+
+
 
 	private void initComponents() {
 		
@@ -53,7 +69,7 @@ public class Controller implements WindowListener,ActionListener,MouseListener{
 		cx = new RegistradorUtilizavel("CX","024025",new RegCode(new byte[]{0,1,0}));
 		dx = new RegistradorUtilizavel("DX","026027",new RegCode(new byte[]{0,1,1}));
 		memoria = new Memoria("028029");
-		ds = new RegistradorUtilizavel("DS","030031",new RegCode( new byte[]{1,0,0}));
+		ds = new RegistradorUtilizavel("DS","030031",new RegCode(new byte[]{1,0,0}));
 		
 		regsU = new LinkedList<RegistradorUtilizavel>();
 		regsU.add((RegistradorUtilizavel)ax);
@@ -62,7 +78,7 @@ public class Controller implements WindowListener,ActionListener,MouseListener{
 		regsU.add((RegistradorUtilizavel)dx);
 		regsU.add((RegistradorUtilizavel)ds);
 		
-		UC = new UnidadeControle((IR)ir, regsU);
+		UC = new UnidadeControle((IR)ir, regsU,memoria,ula);
 		
 		Barramento bUlaAC, bUlaX, bRegs, bExterno; 
 		bUlaAC = new Barramento();
@@ -88,7 +104,7 @@ public class Controller implements WindowListener,ActionListener,MouseListener{
 		new Porta(false,29,bExterno,memoria,UC);
 		new Porta(false,31,bRegs,ds,UC);
 		
-		new Porta(true,0 ,bExterno,mar,UC);
+		new Porta(true,0 ,bRegs,mar,UC);
 		new Porta(true,2 ,bRegs,mbr,UC);
 		new Porta(true,8 ,bExterno,mbr,UC);
 		new Porta(true,4 ,bRegs,ir,UC);
@@ -96,8 +112,8 @@ public class Controller implements WindowListener,ActionListener,MouseListener{
 		new Porta(true,10,bRegs,p2,UC);
 		new Porta(true,12,bRegs,pc,UC);
 		new Porta(true,14,bUlaX,x,UC);
-		new Porta(true,16,bUlaAC,ula,UC);
-		new Porta(true,18,bRegs,ac,UC);
+		new Porta(true,16,bRegs,ula,UC);
+		new Porta(true,18,bUlaAC,ac,UC);
 		new Porta(true,20,bRegs,ax,UC);
 		new Porta(true,22,bRegs,bx,UC);
 		new Porta(true,24,bRegs,cx,UC);
@@ -105,83 +121,45 @@ public class Controller implements WindowListener,ActionListener,MouseListener{
 		new Porta(true,28,bExterno,memoria,UC);
 		new Porta(true,30,bRegs,ds,UC);
 	}
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		String action = e.getActionCommand();
+		//System.out.println("hai");
+		switch(action){
+		case "Traduzir": 
+			try {
+				this.traduzir(tela.getCodigo().getText());
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(tela, ex.getMessage());
+				ex.printStackTrace();
+			}
+			break;
+		case "Executar": 
+			try {
+				UC.advanceClock();
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(tela, ex.getMessage());
+				ex.printStackTrace();
+			}
+			break;
+		case "Limpar": break;
+		default:
+		}
+		atualizarExibicao();
+		//tela.repaint();
 	}
 
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+	private void traduzir(String text) throws Exception {
+		String[] linhas = text.split("\n");
+		int contador=0;
+		for(String s:linhas){
+			s = s.trim();
+			if(s.length()>0){
+				memoria.insere(contador, t.traduzir(s));
+				contador++;
+			}
+		}
 	}
 
 }

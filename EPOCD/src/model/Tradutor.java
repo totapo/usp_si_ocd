@@ -68,9 +68,10 @@ public class Tradutor {
 		String palavra=null;
 		f1 =false;
 		String[] linha = assemblyLine.split(" ");
+		if(linha.length<2) throw new Exception("Comando inválido: "+assemblyLine);
 		String comando = linha[0];
 		String[] params = linha[1].split(",");
-
+		if(linha.length==0) throw new Exception("Comando inválido: "+assemblyLine);
 		comando = comando.toLowerCase() + " ";
 		
 		if(params[0].contains("[")){
@@ -125,7 +126,7 @@ public class Tradutor {
 				f1=false;
 			}
 		}
-		
+		System.out.println(comando);
 		byte[] code = this.opcodes.get(comando);
 		byte[] p = new byte[32];
 		int fim;
@@ -158,7 +159,7 @@ public class Tradutor {
 			palavra = Integer.toBinaryString(aux1);
 			fim = (Palavra.qtdBitsPalavra/2)-1;
 			cont= palavra.length()-1;
-			System.out.println("here "+fim+" "+palavra);
+			//System.out.println("here "+fim+" "+palavra);
 			for(i=fim; i>lastI && cont >= 0; i--){
 				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
 			}
@@ -181,7 +182,7 @@ public class Tradutor {
 				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
 			}
 		}
-		System.out.println(palavra);
+		//System.out.println(palavra);
 		resp = new Palavra(p);
 		
 		return resp;
