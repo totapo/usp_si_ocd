@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -29,12 +30,10 @@ public class Controller implements WindowListener,ActionListener,MouseListener{
 		t = Tradutor.instanceOf();
 		initComponents();
 		tela = new TelaPrincipal(this);
-		printarFirmware();
+		tela.atualizaSelecaoLinhaControle(UC.getPointer());
 	}
 	
-	private void printarFirmware() {
-		JTable t = tela.getTabelaControle();
-	}
+	
 
 	private void initComponents() {
 		

@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -99,9 +100,8 @@ public class TelaPrincipal extends JFrame {
 		
 		//Criando componentes para as linhas de controle
 		//TODO criar funcionalidade para a interface
-		String[][] valores = new String[20][6];
-		valores[0][0] = "00000000000000000000000000000000";
-		String[] colunas = new String[]{"Portas", "Jump", "Prox.", "ULA", "RWAV", "Decode"};
+		String[][] valores;
+		String[] colunas;
 		
 		tabelaControle = new JTable(new LinhaControleModel());
 		tabelaControle.getColumnModel().getColumn(0).setPreferredWidth(460);
@@ -153,6 +153,11 @@ public class TelaPrincipal extends JFrame {
         	pnlRegistradores.add(txtRegistradores[i]);
         }
         
+	}
+	
+	public void atualizaSelecaoLinhaControle(int ponteiro) {
+		tabelaControle.setRowSelectionInterval(ponteiro, ponteiro);
+		tabelaControle.scrollRectToVisible(new Rectangle(tabelaControle.getCellRect(ponteiro, 0, true))); //não testei e pode dar bosta
 	}
 
 	public static long getSerialversionuid() {
