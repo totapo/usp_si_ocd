@@ -7,7 +7,7 @@ public class Firmware {
 	private int pointer;
 	
 	static {
-		instrucoes = new LinhaControle[70]; 
+		instrucoes = new LinhaControle[71]; 
 													//portas												          jump-prox-ula   rwav  decode
 		instrucoes[ 0] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  1, ULA.INC, 0,0,0, 0}); //busca
 		instrucoes[ 1] = new LinhaControle(new byte[]{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0, 0,  2, ULA.NDA, 1,0,1, 0});
@@ -58,7 +58,7 @@ public class Firmware {
 		instrucoes[46] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 47, ULA.NDA, 0,0,0, 0}); //mov mem num
 		instrucoes[47] = new LinhaControle(new byte[]{0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0, 0, 48, ULA.NDA, 0,1,1, 0});
 		instrucoes[48] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0, 0,  0, ULA.NDA, 0,1,1, 0});
-		instrucoes[49] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 47, ULA.NDA, 0,0,0, 1}); //mov mem reg
+		instrucoes[49] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 70, ULA.NDA, 0,0,0, 0}); //mov mem reg
 		instrucoes[50] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.NDA, 0,0,0, 0}); //jumps, todos
 		instrucoes[51] = new LinhaControle(new byte[]{1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 52, ULA.NDA, 0,0,0, 0}); //mov reg,mem
 		instrucoes[52] = new LinhaControle(new byte[]{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0, 0, 53, ULA.NDA, 1,0,1, 0});
@@ -79,7 +79,7 @@ public class Firmware {
 		instrucoes[67] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 68, ULA.NDA, 0,0,0, 0});
 		instrucoes[68] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0, 0, 69, ULA.NDA, 0,0,0, 0});
 		instrucoes[69] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 29, ULA.MOD, 0,0,0, 0});
-		
+		instrucoes[70] = new LinhaControle(new byte[]{0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0, 0, 48, ULA.NDA, 0,1,1, 3}); //faltou uma linha pra mov mem,reg
 		
 	}
 
