@@ -103,8 +103,8 @@ public class TelaPrincipal extends JFrame {
 		valores[0][0] = "00000000000000000000000000000000";
 		String[] colunas = new String[]{"Portas", "Jump", "Prox.", "ULA", "RWAV", "Decode"};
 		
-		tabelaControle = new JTable(valores, colunas);
-		tabelaControle.getColumnModel().getColumn(0).setPreferredWidth(290);
+		tabelaControle = new JTable(new LinhaControleModel());
+		tabelaControle.getColumnModel().getColumn(0).setPreferredWidth(460);
 		tabelaControle.setEnabled(false);
         JScrollPane barraRolagem = new JScrollPane(tabelaControle);
         pnlLinhasControle.add(barraRolagem); 

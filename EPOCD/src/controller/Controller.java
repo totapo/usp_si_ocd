@@ -9,6 +9,9 @@ import java.awt.event.WindowListener;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import view.TelaPrincipal;
 import model.*;
 import componentes.*;
@@ -30,7 +33,7 @@ public class Controller implements WindowListener,ActionListener,MouseListener{
 	}
 	
 	private void printarFirmware() {
-		tela.get
+		JTable t = tela.getTabelaControle();
 	}
 
 	private void initComponents() {

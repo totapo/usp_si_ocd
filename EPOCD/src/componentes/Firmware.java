@@ -3,7 +3,7 @@ package componentes;
 import model.LinhaControle;
 
 public class Firmware {
-	static final LinhaControle [] instrucoes;
+	public static final LinhaControle [] instrucoes;
 	private int pointer;
 	
 	static {
