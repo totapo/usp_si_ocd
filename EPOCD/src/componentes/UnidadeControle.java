@@ -58,8 +58,8 @@ public class UnidadeControle implements Subject{
 		CodeCfgs.put(new OpCode(new byte[]{0,0,1,1,1}),new byte[]{37,1,0}); //add reg,num
 		CodeCfgs.put(new OpCode(new byte[]{0,1,0,0,0}),new byte[]{41,1,0}); //sub reg.num
 		CodeCfgs.put(new OpCode(new byte[]{0,1,0,0,1}),new byte[]{45,1,0}); //mov reg,num
-		CodeCfgs.put(new OpCode(new byte[]{0,1,0,1,0}),new byte[]{51,1,1}); //mov reg,[num]
-		CodeCfgs.put(new OpCode(new byte[]{0,1,0,1,1}),new byte[]{51,3,2}); //mov reg,[reg]
+		CodeCfgs.put(new OpCode(new byte[]{0,1,0,1,0}),new byte[]{45,1,1}); //mov reg,[num]
+		CodeCfgs.put(new OpCode(new byte[]{0,1,0,1,1}),new byte[]{45,3,2}); //mov reg,[reg]
 		CodeCfgs.put(new OpCode(new byte[]{0,1,1,0,0}),new byte[]{46,4,0}); //mov [num],num
 		CodeCfgs.put(new OpCode(new byte[]{0,1,1,0,1}),new byte[]{49,2,0}); //mov [num],reg  - na memoria fica opcode-reg-num, isso facilita as coisas
 		CodeCfgs.put(new OpCode(new byte[]{0,1,1,1,0}),new byte[]{49,3,3}); //mov [reg].reg 
