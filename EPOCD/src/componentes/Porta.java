@@ -10,11 +10,11 @@ import model.Componente;
 
 public class Porta implements Observer, Subject{ 
 	//Subject eh pra caso a gnt queira mudar algo na tela qnd abre e fecha a porta
-	private boolean aberta;
-	private boolean in;
-	private Barramento barramento;
-	private Componente c;
-	private int id;
+	protected boolean aberta;
+	protected boolean in;
+	protected Barramento barramento;
+	protected Componente c;
+	protected int id;
 	
 	public Porta(boolean in, int id, Barramento b, Componente c, UnidadeControle uc){
 		this.c = c;

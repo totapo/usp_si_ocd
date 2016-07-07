@@ -44,6 +44,11 @@ public class Controller implements ActionListener{
 		tela.getTxtRegistradores()[tela.dx].setText(dx.getPalavra().getIntValue()+"");
 		tela.getTxtRegistradores()[tela.ds].setText(ds.getPalavra().getIntValue()+"");
 		
+		tela.getTxtRegistradores()[tela.x].setText(x.getPalavra().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.ac].setText(ac.getPalavra().getIntValue()+"");
+		
+		tela.getTxtRegistradores()[tela.ula1].setText(ula.getNum1().getIntValue()+"");
+		tela.getTxtRegistradores()[tela.ula2].setText(ula.getNum2().getIntValue()+"");
 		tela.atualizaSelecaoLinhaControle(UC.getPointer());
 
 		tela.atualizaMem();
@@ -94,7 +99,7 @@ public class Controller implements ActionListener{
 		new Porta(false,7 ,bRegs,p1,UC);
 		new Porta(false,11,bRegs,p2,UC);
 		new Porta(false,13,bRegs,pc,UC);
-		new Porta(false,15,bUlaX,x,UC);
+		new PortaX(15,bUlaX,x,ula,UC); //porta especial
 		new Porta(false,17,bUlaAC,ula,UC);
 		new Porta(false,19,bRegs,ac,UC);
 		new Porta(false,21,bRegs,ax,UC);
@@ -111,7 +116,7 @@ public class Controller implements ActionListener{
 		new Porta(true,6 ,bRegs,p1,UC);
 		new Porta(true,10,bRegs,p2,UC);
 		new Porta(true,12,bRegs,pc,UC);
-		new Porta(true,14,bUlaX,x,UC);
+		new Porta(true,14,bRegs,x,UC);
 		new Porta(true,16,bRegs,ula,UC);
 		new Porta(true,18,bUlaAC,ac,UC);
 		new Porta(true,20,bRegs,ax,UC);
@@ -147,7 +152,6 @@ public class Controller implements ActionListener{
 		default:
 		}
 		atualizarExibicao();
-		//tela.repaint();
 	}
 
 	private void traduzir(String text) throws Exception {

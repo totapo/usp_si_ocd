@@ -22,7 +22,8 @@ public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField[] txtRegistradores;
-	public final int ax = 0, bx = 1, cx = 2, dx = 3, ir = 4, p1 = 5, p2 = 6, pc = 7,  ds = 8, mar = 9, mbr = 10;
+	public final int ax = 0, bx = 1, cx = 2, dx = 3, ir = 4, p1 = 5, p2 = 6, pc = 7,  ds = 8, mar = 9, mbr = 10, x = 11, ac = 12
+			, ula1 = 13, ula2=14;
 	private JPanel pnlComandos, pnlRegistradores, pnlMemoria, pnlLinhasControle;
 	private JButton btnTraduzir;
 	private JButton btnClearCodigo;
@@ -80,7 +81,7 @@ public class TelaPrincipal extends JFrame {
 		GridLayout g = new GridLayout(0,4);
 		g.setVgap(10);
 		JPanel regs = new JPanel(g);
-		regs.setPreferredSize(new Dimension( 500, 180));
+		regs.setPreferredSize(new Dimension( 500, 240));
 		pnlRegistradores.add(regs);
 		((FlowLayout)pnlRegistradores.getLayout()).setAlignment(FlowLayout.LEFT);
 		//this.getContentPane().add(pnlRegistradores, BorderLayout.CENTER);
@@ -159,11 +160,11 @@ public class TelaPrincipal extends JFrame {
         pnlMemoria.add(barraRolagemMemoria, BorderLayout.CENTER);
         
         //Criando Componentes para os registradores
-        txtRegistradores = new JTextField[11];
-        JLabel[] lblRegs = new JLabel[11];
-        String[] nomesRegs = new String[]{"ax", "bx", "cx", "dx", "ir", "p1", "p2", "pc",  "ds", "mar", "mbr"};
+        txtRegistradores = new JTextField[15];
+        JLabel[] lblRegs = new JLabel[15];
+        String[] nomesRegs = new String[]{"ax", "bx", "cx", "dx", "ir", "p1", "p2", "pc",  "ds", "mar", "mbr", "x","ac","UL1", "UL2"};
         JPanel aux;
-        for(int i = 0; i <= 10; i++){
+        for(int i = 0; i <= 14; i++){
         	aux = new JPanel();
         	aux.setLayout(new BoxLayout(aux,BoxLayout.X_AXIS));
         	txtRegistradores[i] = new JTextField();
@@ -176,7 +177,7 @@ public class TelaPrincipal extends JFrame {
         	regs.add(aux);
         	if(i == 6){
         		regs.add(new JPanel()); //pra encher o espaço xD
-        	} else if(i==8){
+        	} else if(i==8 || i==10 || i==12){
         		regs.add(new JPanel()); //pra encher o espaço xD
         		regs.add(new JPanel()); //pra encher o espaço xD
         	}
