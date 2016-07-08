@@ -162,7 +162,7 @@ public class UnidadeControle implements Subject{
 		flagUpdate=true;
 		notifyObservers(); 
 		
-		ula.setOperacao(atual.getULA());	//manda codigo pra ula se tiver e, caso haja, ela ja calcula
+		ula.setOperacao(atual.getULA(), firm.getPointer()!=0);	//manda codigo pra ula se tiver e, caso haja, ela ja calcula
 		
 		
 		ponteiro = atual.getProx(); //seta a proxima linha do firmware que será executada

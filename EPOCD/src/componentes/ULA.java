@@ -30,9 +30,10 @@ public class ULA extends Componente{
 	public String getCodigo(){
 		return codigo;
 	}
-	
-	public void setOperacao(byte b) throws Exception{
+	private boolean updateFlags;
+	public void setOperacao(byte b, boolean updateFlags) throws Exception{
 		if(b>=1 && b<=7){
+			this.updateFlags = updateFlags;
 			operacao = b;
 			calc();
 		}
@@ -73,8 +74,10 @@ public class ULA extends Componente{
 			case NDA:
 			default:break;
 		}
-		flags[0]=(byte)((resp==0)?1:0); //flag 0
-		flags[1]=(byte)((resp>=0)?0:1); //flag sinal
+		if(this.updateFlags){
+			flags[0]=(byte)((resp==0)?1:0); //flag 0
+			flags[1]=(byte)((resp>=0)?0:1); //flag sinal
+		}
 		resultado = new Palavra(resp);
 		System.out.println(resp+" a "+a+" b "+b+" op "+operacao);
 	}
