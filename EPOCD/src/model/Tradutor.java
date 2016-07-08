@@ -157,13 +157,13 @@ public class Tradutor {
 		//TODO
 		if(a==null && b==null){
 			palavra = Integer.toBinaryString(aux1);
-			fim = (Palavra.qtdBitsPalavra/2)-1;
+			fim = ((Palavra.qtdBitsPalavra-5)/2)-1;
 			cont= palavra.length()-1;
 			//System.out.println("here "+fim+" "+palavra);
 			for(i=fim; i>=lastI && cont >= 0; i--){
 				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
 			}
-			lastI=i;
+			lastI=fim;
 			palavra = Integer.toBinaryString(aux2);
 			cont= palavra.length()-1;
 			for(i=31; i>=lastI && cont >= 0; i--){

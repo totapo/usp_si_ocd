@@ -38,7 +38,7 @@ public class IR extends Registrador{
 				p2.setPalavra(new Palavra(mem,8,10), -1);
 				break;
 			case 4:
-				int fim = (Palavra.qtdBitsPalavra/2)-1;
+				int fim = ((Palavra.qtdBitsPalavra-5)/2)-1;
 				p1.setPalavra(new Palavra((int)Long.parseLong(parse(mem.getBits(5,fim)),2)),-1);
 				p2.setPalavra(new Palavra((int)Long.parseLong(parse(mem.getBits(fim+1,Palavra.qtdBitsPalavra-1)),2)),-1);
 				break;
