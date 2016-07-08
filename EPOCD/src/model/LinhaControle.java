@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class LinhaControle {
 	private static final int tamLinha = 39;
+	private String funcao;
 	//private static final int fimPortas = 29;
 	//private static final int fimJump = 31;
 	//private static final int fimProx = 32;
@@ -13,9 +14,10 @@ public class LinhaControle {
 	
 	private byte[] linha;
 	
-	public LinhaControle(byte[] l){
+	public LinhaControle(byte[] l, String funcao){
 		if(l.length == tamLinha) linha =l;
 		else linha = new byte[tamLinha];
+		this.funcao = funcao;
 	}
 	
 	public byte[] getLinha(){
