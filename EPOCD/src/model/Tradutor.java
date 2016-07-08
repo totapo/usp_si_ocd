@@ -51,11 +51,10 @@ public class Tradutor {
 		opcodes.put("jnz num"      , new byte[]{1,0,1,1,0});
 		opcodes.put("cmp num,num"  , new byte[]{1,0,1,1,1});
 		opcodes.put("cmp reg,num"  , new byte[]{1,1,0,0,0});
-		opcodes.put("cmp reg,num"  , new byte[]{1,1,0,0,1});
-		opcodes.put("cmp num,reg"  , new byte[]{1,1,0,1,0});
-		opcodes.put("cmp reg,reg"  , new byte[]{1,1,0,1,1});
-		opcodes.put("mul num"      , new byte[]{1,1,1,0,0});
-		opcodes.put("mul num"      , new byte[]{1,1,1,0,1});
+		opcodes.put("cmp num,reg"  , new byte[]{1,1,0,0,1});
+		opcodes.put("cmp reg,reg"  , new byte[]{1,1,0,1,0});
+		opcodes.put("mul num"  , new byte[]{1,1,0,1,1});
+		opcodes.put("div num"      , new byte[]{1,1,1,0,0});
 	}
 	
 	public Palavra traduzir(String assemblyLine) throws Exception{
