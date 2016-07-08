@@ -53,9 +53,9 @@ public class ULA extends Componente{
 	}
 
 	private void calc() throws Exception{
-		long a = num1.getIntValue();
-		long b = num2.getIntValue();
-		long resp=0;
+		int a = num1.getIntValue();
+		int b = num2.getIntValue();
+		int resp=0;
 		switch(operacao){
 			case ADD: resp = a+b; break;
 			case SUB: resp = b-a; break;
@@ -76,7 +76,7 @@ public class ULA extends Componente{
 		flags[0]=(byte)((resp==0)?1:0); //flag 0
 		flags[1]=(byte)((resp>=0)?0:1); //flag sinal
 		resultado = new Palavra(resp);
-		System.out.println(resultado.getIntValue()+" a "+a+" b "+b+" op "+operacao);
+		//System.out.println(resultado.getIntValue()+" a "+a+" b "+b+" op "+operacao);
 	}
 
 	@Override
