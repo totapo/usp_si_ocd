@@ -13,13 +13,13 @@ import model.Palavra;
 public class MemoriaModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
-	private Map<Integer,Palavra> mem;
-	private List<Entry<Integer,Palavra>> l;
+	private Map<Long,Palavra> mem;
+	private List<Entry<Long,Palavra>> l;
 	private String[] columnNames;
 	public MemoriaModel(Memoria m){
 		mem = m.getMap();
 		columnNames = new String[]{"Posição","Valor Inteiro"};
-		l = new ArrayList<Entry<Integer,Palavra>>(mem.entrySet());
+		l = new ArrayList<Entry<Long,Palavra>>(mem.entrySet());
 	}
 	
 	public void update(){

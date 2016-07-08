@@ -8,14 +8,14 @@ import model.Palavra;
 
 public class Memoria extends Componente{
 	boolean av,w,r,endOk;
-	Map<Integer,Palavra>palavras;
+	Map<Long,Palavra>palavras;
 	
-	private int address;
+	private long address;
 	private Palavra valor;
 	private String cod;
 	
 	public Memoria(String cod){
-		this.palavras = new TreeMap<Integer,Palavra>();
+		this.palavras = new TreeMap<Long,Palavra>();
 		av = r = w = endOk = false;
 		this.cod = cod;
 	}
@@ -24,7 +24,7 @@ public class Memoria extends Componente{
 		return cod;
 	}
 	
-	public Map<Integer,Palavra> getMap(){
+	public Map<Long,Palavra> getMap(){
 		return palavras;
 	}
 	
@@ -59,7 +59,7 @@ public class Memoria extends Componente{
 		return valor;
 	}
 	
-	public void insere(int posicao, Palavra val){
+	public void insere(long posicao, Palavra val){
 		palavras.put(posicao,val);
 	}
 	

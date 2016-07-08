@@ -53,9 +53,9 @@ public class ULA extends Componente{
 	}
 
 	private void calc() throws Exception{
-		int a = num1.getIntValue();
-		int b = num2.getIntValue();
-		int resp=0;
+		long a = num1.getIntValue();
+		long b = num2.getIntValue();
+		long resp=0;
 		switch(operacao){
 			case ADD: resp = a+b; break;
 			case SUB: resp = b-a; break;

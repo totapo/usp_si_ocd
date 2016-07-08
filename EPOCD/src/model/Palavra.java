@@ -13,12 +13,13 @@ public class Palavra {
 		this.bits = new byte[qtdBitsPalavra];
 	}
 	
-	public Palavra(int resp) {
+	public Palavra(long resp) {
 		this.bits = new byte[qtdBitsPalavra];
-		String s = Integer.toBinaryString(resp);
+		String s = Long.toBinaryString(resp);
 		//System.out.println(resp+"\n"+s);
+		//if(s.length()>32) throw new Exception("overflow");
 		int cont=31;
-		for(int i=s.length()-1; i>=0; i--){
+		for(int i=s.length()-1; i>=0 && cont>=0; i--){
 			bits[cont--] = (byte) ((s.charAt(i)=='1')?1:0);
 		}
 	}
@@ -53,7 +54,7 @@ public class Palavra {
 		return Arrays.copyOfRange(bits, from, to+1);
 	}
 	
-	private String bitString(){
+	public String bitString(byte[] bits){
 		String r = "";
 		for(byte b:bits)
 			r+=b+"";
@@ -65,6 +66,7 @@ public class Palavra {
 	}
 	
 	public int getIntValue(){
-		return Integer.parseInt(this.bitString(),2);
+		long l= Long.parseLong(this.bitString(bits),2);
+		return (int)l;
 	}
 }

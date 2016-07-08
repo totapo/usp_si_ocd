@@ -160,25 +160,25 @@ public class Tradutor {
 			fim = (Palavra.qtdBitsPalavra/2)-1;
 			cont= palavra.length()-1;
 			//System.out.println("here "+fim+" "+palavra);
-			for(i=fim; i>lastI && cont >= 0; i--){
+			for(i=fim; i>=lastI && cont >= 0; i--){
 				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
 			}
 			lastI=i;
 			palavra = Integer.toBinaryString(aux2);
 			cont= palavra.length()-1;
-			for(i=31; i>lastI && cont >= 0; i--){
+			for(i=31; i>=lastI && cont >= 0; i--){
 				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
 			}
 		} else if(a==null){
 			palavra = Integer.toBinaryString(aux1);
 			cont= palavra.length()-1;
-			for(i=31; i>lastI && cont >= 0; i--){
+			for(i=31; i>=lastI && cont >= 0; i--){
 				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
 			}
 		} else if(b==null){
 			palavra = Integer.toBinaryString(aux2);
 			cont=palavra.length()-1;
-			for(i=31; i>lastI && cont >= 0; i--){
+			for(i=31; i>=lastI && cont >= 0; i--){
 				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
 			}
 		}
