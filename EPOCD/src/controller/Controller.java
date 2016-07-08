@@ -49,8 +49,13 @@ public class Controller implements ActionListener{
 		
 		tela.getTxtRegistradores()[tela.ula1].setText(ula.getNum1().getIntValue()+"");
 		tela.getTxtRegistradores()[tela.ula2].setText(ula.getNum2().getIntValue()+"");
+		
+		tela.getTxtRegistradores()[tela.zero].setText(((ula.flagZero())?1:0)+"");
+		tela.getTxtRegistradores()[tela.sinal].setText(((ula.flagSignal())?1:0)+"");
 		tela.atualizaSelecaoLinhaControle(UC.getPointer());
 
+		tela.getTxtDescOperacao().setText(Firmware.instrucoes[UC.getPointer()].getDesc());
+		
 		tela.atualizaMem();
 	}
 

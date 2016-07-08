@@ -20,6 +20,10 @@ public class LinhaControle {
 		this.funcao = funcao;
 	}
 	
+	public String getDesc(){
+		return funcao;
+	}
+	
 	public byte[] getLinha(){
 		return linha;
 	}

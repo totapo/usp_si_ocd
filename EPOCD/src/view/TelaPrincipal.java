@@ -23,7 +23,7 @@ public class TelaPrincipal extends JFrame {
 	
 	private JTextField[] txtRegistradores;
 	public final int ax = 0, bx = 1, cx = 2, dx = 3, ir = 4, p1 = 5, p2 = 6, pc = 7,  ds = 8, mar = 9, mbr = 10, x = 11, ac = 12
-			, ula1 = 13, ula2=14;
+			, ula1 = 13, ula2=14, zero=15, sinal=16;
 	private JPanel pnlComandos, pnlRegistradores, pnlMemoria, pnlLinhasControle;
 	private JButton btnTraduzir;
 	private JButton btnClearCodigo;
@@ -31,6 +31,7 @@ public class TelaPrincipal extends JFrame {
 	private JButton btnJmpMemoria;
 	private JTextArea codigo;
 	private JTextField txtJmpMemoria;
+	private JTextField txtDescOperacao;
 	private ArrayList<CelulaMemoria> celulas;
 	private JTable tabelaMemoria;
 	private JTable tabelaControle;
@@ -64,7 +65,8 @@ public class TelaPrincipal extends JFrame {
 		pnlComandos.setVisible(true);
 		
 		
-		pnlLinhasControle = new JPanel(new BorderLayout());
+		pnlLinhasControle = new JPanel();
+		pnlLinhasControle.setLayout(new BoxLayout(pnlLinhasControle, BoxLayout.Y_AXIS));
 		pnlLinhasControle.setBorder(BorderFactory.createTitledBorder("Linhas de Controle"));
 		pnlLinhasControle.setPreferredSize(new Dimension( 580, 300));
 		pnlLinhasControle.setVisible(true);
@@ -128,7 +130,11 @@ public class TelaPrincipal extends JFrame {
 		pnlComandos.add(btnClearCodigo);
 		
 		//Criando componentes para as linhas de controle
-		
+		JPanel descLinhaControle = new JPanel(new BorderLayout());
+		descLinhaControle.setPreferredSize(new Dimension(545,30));
+		this.txtDescOperacao = new JTextField();
+		txtDescOperacao.setEditable(false);
+		descLinhaControle.add(txtDescOperacao);
 		tabelaControle = new JTable(new LinhaControleModel());
 		tabelaControle.getColumnModel().getColumn(0).setPreferredWidth(460);
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
@@ -140,6 +146,8 @@ public class TelaPrincipal extends JFrame {
 		tabelaControle.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
 		tabelaControle.setEnabled(false);
         JScrollPane barraRolagem = new JScrollPane(tabelaControle);
+        
+        pnlLinhasControle.add(descLinhaControle); 
         pnlLinhasControle.add(barraRolagem); 
 		
 		tabelaMemoria = new JTable();
@@ -160,18 +168,20 @@ public class TelaPrincipal extends JFrame {
         pnlMemoria.add(barraRolagemMemoria, BorderLayout.CENTER);
         
         //Criando Componentes para os registradores
-        txtRegistradores = new JTextField[15];
-        JLabel[] lblRegs = new JLabel[15];
-        String[] nomesRegs = new String[]{"ax", "bx", "cx", "dx", "ir", "p1", "p2", "pc",  "ds", "mar", "mbr", "x","ac","UL1", "UL2"};
+        txtRegistradores = new JTextField[17];
+        JLabel[] lblRegs = new JLabel[17];
+        String[] nomesRegs = new String[]{"ax", "bx", "cx", "dx", "ir", "p1", "p2", "pc",  "ds", "mar", "mbr", "x","ac","UL1", "UL2", "Zero", "Sinal"};
         JPanel aux;
-        for(int i = 0; i <= 14; i++){
+        for(int i = 0; i <= 16; i++){
         	aux = new JPanel();
         	aux.setLayout(new BoxLayout(aux,BoxLayout.X_AXIS));
         	txtRegistradores[i] = new JTextField();
         	txtRegistradores[i].setPreferredSize(new Dimension(55,30));
-        	txtRegistradores[i].setEnabled(false);
+        	txtRegistradores[i].setEditable(false);
         	lblRegs[i] = new JLabel(nomesRegs[i].toUpperCase());
         	lblRegs[i].setPreferredSize(new Dimension(30,30));
+        	if(i>14)
+        		lblRegs[i].setPreferredSize(new Dimension(40,30));
         	aux.add(lblRegs[i]);
         	aux.add(txtRegistradores[i]);
         	regs.add(aux);
@@ -263,6 +273,10 @@ public class TelaPrincipal extends JFrame {
 		((MemoriaModel)this.tabelaMemoria.getModel()).update();
 		tabelaMemoria.repaint();
 		tabelaMemoria.revalidate();
+	}
+
+	public JTextField getTxtDescOperacao() {
+		return txtDescOperacao;
 	}
 	
 }
