@@ -76,7 +76,7 @@ public class ULA extends Componente{
 		flags[0]=(byte)((resp==0)?1:0); //flag 0
 		flags[1]=(byte)((resp>=0)?0:1); //flag sinal
 		resultado = new Palavra(resp);
-		//System.out.println(resultado.getIntValue()+" a "+a+" b "+b+" op "+operacao);
+		System.out.println(resp+" a "+a+" b "+b+" op "+operacao);
 	}
 
 	@Override

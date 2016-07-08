@@ -50,8 +50,8 @@ public class Firmware {
 		instrucoes[38] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 39, ULA.ADD, 0,0,0, 1}, "ULA <- X | ULA <- reg (add)");
 		instrucoes[39] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 40, ULA.NDA, 0,0,0, 0}, "AC <- ULA");
 		instrucoes[40] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.NDA, 0,0,0, 2}, "reg <- AC");
-		instrucoes[41] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 42, ULA.NDA, 0,0,0, 0}, "X <- P2"); //sub reg,num
-		instrucoes[42] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 43, ULA.SUB, 0,0,0, 1}, "ULA <- X | ULA <- reg (sub)");
+		instrucoes[41] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 42, ULA.NDA, 0,0,0, 1}, "X <- reg"); //sub reg,num
+		instrucoes[42] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 43, ULA.SUB, 0,0,0, 0}, "ULA <- X | ULA <- P2 (sub)");
 		instrucoes[43] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0, 0, 44, ULA.NDA, 0,0,0, 0}, "AC <- ULA");
 		instrucoes[44] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.NDA, 0,0,0, 2}, "reg <- AC");
 		instrucoes[45] = new LinhaControle(new byte[]{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,  0, ULA.NDA, 0,0,0, 2}, "reg <- P2"); //mov reg,num
