@@ -59,13 +59,13 @@ public class Tradutor {
 	
 	public Palavra traduzir(String assemblyLine) throws Exception{
 		Palavra resp = null;
-		boolean f1;
+		boolean f1,f2;
 		RegCode a,b;
 		a = b = null;
 		int aux1,aux2;
 		aux1=aux2=0;
 		String palavra=null;
-		f1 =false;
+		f1 =f2=false;
 		String[] linha = assemblyLine.split(" ");
 		if(linha.length<2) throw new Exception("Comando inválido: "+assemblyLine);
 		String comando = linha[0];
@@ -99,6 +99,7 @@ public class Tradutor {
 		}
 		
 		if(params.length==2){
+			f2=true;
 			comando+= ",";
 			if(params[1].contains("[")){
 				comando+="[";
@@ -155,19 +156,29 @@ public class Tradutor {
 		int lastI = i;
 		//TODO
 		if(a==null && b==null){
-			palavra = Integer.toBinaryString(aux1);
-			fim = ((Palavra.qtdBitsPalavra-5)/2)-1;
-			cont= palavra.length()-1;
-			//System.out.println("here "+fim+" "+palavra);
-			for(i=fim; i>=lastI && cont >= 0; i--){
-				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
+			if(f2){
+				palavra = Integer.toBinaryString(aux1);
+				fim = ((Palavra.qtdBitsPalavra-5)/2)-1;
+				cont= palavra.length()-1;
+				//System.out.println("here "+fim+" "+palavra);
+				for(i=fim; i>=lastI && cont >= 0; i--){
+					p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
+				}
+				lastI=fim;
+				palavra = Integer.toBinaryString(aux2);
+				cont= palavra.length()-1;
+				for(i=31; i>=lastI && cont >= 0; i--){
+					p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
+				}
+			} else {
+				palavra = Integer.toBinaryString(aux1);
+				cont= palavra.length()-1;
+				//System.out.println("here "+fim+" "+palavra);
+				for(i=31; i>=lastI && cont >= 0; i--){
+					p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
+				}
 			}
-			lastI=fim;
-			palavra = Integer.toBinaryString(aux2);
-			cont= palavra.length()-1;
-			for(i=31; i>=lastI && cont >= 0; i--){
-				p[i]=Byte.parseByte(palavra.charAt(cont--)+"");
-			}
+			
 		} else if(a==null){
 			palavra = Integer.toBinaryString(aux1);
 			cont= palavra.length()-1;
