@@ -28,9 +28,9 @@ public class TelaPrincipal extends JFrame {
 	private JButton btnTraduzir;
 	private JButton btnClearCodigo;
 	private JButton btnExecutaInstrucao;
-	private JButton btnJmpMemoria;
+	//private JButton btnJmpMemoria;
 	private JTextArea codigo;
-	private JTextField txtJmpMemoria;
+	//private JTextField txtJmpMemoria;
 	private JTextField txtDescOperacao;
 	private ArrayList<CelulaMemoria> celulas;
 	private JTable tabelaMemoria;
@@ -155,15 +155,6 @@ public class TelaPrincipal extends JFrame {
         JScrollPane barraRolagemMemoria = new JScrollPane(tabelaMemoria);
         
         JPanel jmpMemPanel = new JPanel(new FlowLayout());
-        JLabel labelMemoria = new JLabel("Mover para: ");
-        btnJmpMemoria = new JButton("Ir");
-        btnJmpMemoria.setPreferredSize(new Dimension(60, 30));
-        //TODO pular para espaco de memoria 
-        txtJmpMemoria = new JTextField();
-        txtJmpMemoria.setPreferredSize(new Dimension(80, 30));
-        jmpMemPanel.add(labelMemoria);
-        jmpMemPanel.add(txtJmpMemoria);
-        jmpMemPanel.add(btnJmpMemoria);
         pnlMemoria.add(jmpMemPanel, BorderLayout.NORTH);
         pnlMemoria.add(barraRolagemMemoria, BorderLayout.CENTER);
         
@@ -236,16 +227,8 @@ public class TelaPrincipal extends JFrame {
 		return btnExecutaInstrucao;
 	}
 
-	public JButton getBtnJmpMemoria() {
-		return btnJmpMemoria;
-	}
-
 	public JTextArea getCodigo() {
 		return codigo;
-	}
-
-	public JTextField getTxtJmpMemoria() {
-		return txtJmpMemoria;
 	}
 
 	public ArrayList<CelulaMemoria> getCelulas() {

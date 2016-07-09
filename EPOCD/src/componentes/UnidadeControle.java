@@ -186,23 +186,31 @@ public class UnidadeControle implements Subject{
 				switch(cfg[3]){ //se as condicoes do jump nao foram atingidas comeca o ciclo de busca normalmente
 					case 0: //jl
 						if(ula.flagSignal()) ponteiro = busca;
+						else ponteiro = cfg[0];
 						break;
 					case 1: //jle
 						if(ula.flagSignal() && !ula.flagZero()) ponteiro = busca;
+						else ponteiro = cfg[0];
 						break;
 					case 2: //jg 
 						if(!ula.flagSignal() && !ula.flagZero()) ponteiro = busca;
+						else ponteiro = cfg[0];
 						break;
 					case 3: //jge 
 						if(!ula.flagSignal()) ponteiro = busca;
+						else ponteiro = cfg[0];
 						break;
 					case 4: //jz 
 						if(!ula.flagZero()) ponteiro = busca;
+						else ponteiro = cfg[0];
 						break;
 					case 5: //jnz 
 						if(ula.flagZero()) ponteiro = busca;
+						else ponteiro = cfg[0];
 						break;
-					default: break;
+					default: 
+						ponteiro=busca;
+						break;
 				}
 			else
 				ponteiro = cfg[0];
