@@ -1,10 +1,10 @@
 package model;
 
-public abstract class Componente{
-	
-	public abstract void setPalavra(Palavra palavra, int idPorta);
+public interface Componente{
+	//interface que representa um componente
+	public void setPalavra(Palavra palavra, int idPorta);
 
-	public abstract Palavra getPalavra();
+	public Palavra getPalavra();
 	
-	public abstract void reset();
+	public void reset();
 }

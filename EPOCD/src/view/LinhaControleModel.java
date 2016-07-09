@@ -6,7 +6,7 @@ import componentes.Firmware;
 import model.LinhaControle;
 
 public class LinhaControleModel extends AbstractTableModel{
-	
+	//table model para descrição das linhas de controle do firmware
 	/**
 	 * 
 	 */

@@ -2,7 +2,7 @@ package componentes;
 import model.Componente;
 import model.Palavra;
 
-public class Registrador extends Componente{
+public class Registrador implements Componente{
 	//classe que representa um registrador genérico
 	private String nome;
 	private String codigo;

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class OpCode {
 	private byte[] code;
-	
+	//classe que representa um opcode, byte[] com 5 de tamanho
 	public OpCode(Palavra mem){
 		this.code = Arrays.copyOfRange(mem.getBits(),0,5);
 	}

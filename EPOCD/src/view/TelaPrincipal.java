@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -27,11 +26,8 @@ public class TelaPrincipal extends JFrame {
 	private JButton btnTraduzir;
 	private JButton btnClearCodigo;
 	private JButton btnExecutaInstrucao;
-	//private JButton btnJmpMemoria;
 	private JTextArea codigo;
-	//private JTextField txtJmpMemoria;
 	private JTextField txtDescOperacao;
-	private ArrayList<CelulaMemoria> celulas;
 	private JTable tabelaMemoria;
 	private JTable tabelaControle;
 	private Controller ctrl;
@@ -69,7 +65,6 @@ public class TelaPrincipal extends JFrame {
 		pnlLinhasControle.setBorder(BorderFactory.createTitledBorder("Linhas de Controle"));
 		pnlLinhasControle.setPreferredSize(new Dimension( 580, 300));
 		pnlLinhasControle.setVisible(true);
-		//this.getContentPane().add(pnlLinhasControle);
 		
 		leftPanel.add(pnlComandos, BorderLayout.LINE_START);
 		leftPanel.add(pnlLinhasControle, BorderLayout.CENTER);
@@ -85,13 +80,11 @@ public class TelaPrincipal extends JFrame {
 		regs.setPreferredSize(new Dimension( 500, 240));
 		pnlRegistradores.add(regs);
 		((FlowLayout)pnlRegistradores.getLayout()).setAlignment(FlowLayout.LEFT);
-		//this.getContentPane().add(pnlRegistradores, BorderLayout.CENTER);
 		
 		pnlMemoria = new JPanel(new BorderLayout());
 		pnlMemoria.setBorder(BorderFactory.createTitledBorder("Memória"));
 		pnlMemoria.setPreferredSize(new Dimension(380, 300));
 		pnlMemoria.setVisible(true);
-		//this.getContentPane().add(pnlMemoria);
 		
 		rightPanel.add(pnlRegistradores, BorderLayout.LINE_START);
 		rightPanel.add(pnlMemoria, BorderLayout.CENTER);
@@ -185,9 +178,10 @@ public class TelaPrincipal extends JFrame {
         
 	}
 	
+	//utilizado pela Controller para atualizar a linha atual do firmware
 	public void atualizaSelecaoLinhaControle(int ponteiro) {
 		tabelaControle.setRowSelectionInterval(ponteiro, ponteiro);
-		tabelaControle.scrollRectToVisible(new Rectangle(tabelaControle.getCellRect(ponteiro, 0, true))); //não testei e pode dar bosta
+		tabelaControle.scrollRectToVisible(new Rectangle(tabelaControle.getCellRect(ponteiro, 0, true)));
 	}
 
 	public static long getSerialversionuid() {
@@ -230,10 +224,6 @@ public class TelaPrincipal extends JFrame {
 		return codigo;
 	}
 
-	public ArrayList<CelulaMemoria> getCelulas() {
-		return celulas;
-	}
-
 	public JTable getTabelaMemoria() {
 		return tabelaMemoria;
 	}
@@ -242,6 +232,7 @@ public class TelaPrincipal extends JFrame {
 		return tabelaControle;
 	}
 
+	//seta o TableModel da tabela que representa a memória
 	public void setMemoryModel(Memoria memoria) {
 		this.tabelaMemoria.setModel(new MemoriaModel(memoria));
 		tabelaMemoria.getColumnModel().getColumn(0).setPreferredWidth(70);
@@ -250,7 +241,8 @@ public class TelaPrincipal extends JFrame {
 		tabelaMemoria.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
 		tabelaMemoria.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
 	}
-
+	
+	//atualiza o modelo da tabela de memória, para que ele busque as atualizações nos valores e posições preenchidos
 	public void atualizaMem() {
 		((MemoriaModel)this.tabelaMemoria.getModel()).update();
 		tabelaMemoria.repaint();

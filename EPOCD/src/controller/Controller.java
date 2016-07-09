@@ -12,7 +12,7 @@ import model.*;
 import componentes.*;
 
 public class Controller implements ActionListener{
-	
+	//classe que faz a conexão entre a interface e a lógica do programa
 	private UnidadeControle UC;
 	private Memoria memoria;
 	private ULA ula;
@@ -31,8 +31,7 @@ public class Controller implements ActionListener{
 		
 	}
 	
-	
-
+	//atualiza os campos da tela com os valores dos componetes
 	private void atualizarExibicao() {
 		tela.getTxtRegistradores()[tela.mar].setText(mar.getPalavra().getIntValue()+"");
 		tela.getTxtRegistradores()[tela.mbr].setText(mbr.getPalavra().getIntValue()+"");
@@ -54,15 +53,16 @@ public class Controller implements ActionListener{
 		
 		tela.getTxtRegistradores()[tela.zero].setText(((ula.flagZero())?1:0)+"");
 		tela.getTxtRegistradores()[tela.sinal].setText(((ula.flagSignal())?1:0)+"");
+		
 		tela.atualizaSelecaoLinhaControle(UC.getPointer());
 
-		tela.getTxtDescOperacao().setText(Firmware.instrucoes[UC.getPointer()].getDesc());
+		tela.getTxtDescOperacao().setText("Linha "+UC.getPointer()+": "+Firmware.instrucoes[UC.getPointer()].getDesc());
 		
 		tela.atualizaMem();
 	}
 
 
-
+	//inicializa todos os componentes do processador
 	private void initComponents() {
 		
 		List<RegistradorUtilizavel> regsU;
@@ -92,13 +92,14 @@ public class Controller implements ActionListener{
 		
 		UC = new UnidadeControle((IR)ir, regsU,memoria,ula);
 		
+		//barramentos
 		Barramento bUlaAC, bUlaX, bRegs, bExterno; 
 		bUlaAC = new Barramento();
 		bUlaX = new Barramento();
 		bRegs = new Barramento();
 		bExterno = new Barramento();
 		
-		//portas ula ac adicionar portas de saida como observadoras da UC primeiro (pra n cagar mov ax,ax) 
+		//portas ula ac adicionar portas de saida como observadoras da UC primeiro 
 		new Porta(false,1 ,bExterno,mar,UC);
 		new Porta(false,3 ,bRegs,mbr,UC);
 		new Porta(false,9 ,bExterno,mbr,UC);
@@ -137,9 +138,8 @@ public class Controller implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
-		//System.out.println("hai");
 		switch(action){
-		case "Traduzir": 
+		case "Traduzir": //botao traduzir
 			try {
 				if(tela.getCodigo().getText().trim().length()>0){
 					this.traduzir(tela.getCodigo().getText());
@@ -148,19 +148,19 @@ public class Controller implements ActionListener{
 					tela.getBtnClearCodigo().setEnabled(true);
 				}
 			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(tela, ex.getMessage());
-				ex.printStackTrace();
+				JOptionPane.showMessageDialog(tela, ex.getClass().getName()+": "+ex.getMessage(), "Erro na tradução", JOptionPane.ERROR_MESSAGE);
+				//ex.printStackTrace();
 			}
 			break;
-		case "Executar": 
+		case "Executar": //botao executar
 			try {
 				UC.advanceClock();
 			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(tela, ex.getMessage());
-				ex.printStackTrace();
+				JOptionPane.showMessageDialog(tela, ex.getClass().getName()+": "+ex.getMessage(), "Erro na execução", JOptionPane.ERROR_MESSAGE);
+				//ex.printStackTrace();
 			}
 			break;
-		case "Limpar":
+		case "Limpar": //botao limpar
 			resetAll();
 			break;
 		default:
@@ -168,6 +168,7 @@ public class Controller implements ActionListener{
 		atualizarExibicao();
 	}
 
+	//reseta o status de todos os componentes
 	private void resetAll() {
 		UC.reset();;
 		memoria.reset();;
@@ -187,8 +188,6 @@ public class Controller implements ActionListener{
 		ds.reset();
 	}
 
-
-
 	private void traduzir(String text) throws Exception {
 		String[] linhas = text.split("\n");
 		int contador=0;
@@ -199,6 +198,8 @@ public class Controller implements ActionListener{
 				contador++;
 			}
 		}
+		//usado para testar o limite de endereçamento da memória por código
+		//memoria.insere(4500, new Palavra(true));
 	}
 
 }

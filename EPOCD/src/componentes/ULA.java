@@ -3,7 +3,7 @@ package componentes;
 import model.Componente;
 import model.Palavra;
 
-public class ULA extends Componente{
+public class ULA implements Componente{
 	//classe que representa a ULA
 	
 	//OPERAÇÕES

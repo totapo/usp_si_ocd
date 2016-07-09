@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import model.Componente;
 import model.Palavra;
 
-public class Memoria extends Componente{
+public class Memoria implements Componente{
 	//classe que representa a memória principal do computador
 	boolean av,w,r,endOk; //flags
 	Map<Long,Palavra>palavras; //memória em si
@@ -41,7 +41,9 @@ public class Memoria extends Componente{
 	@Override
 	public void setPalavra(Palavra palavra, int idPorta) {
 		if(av && !endOk){ //se enviaram alguma coisa e o endereço ainda não foi setado, seta o endereço
-			address = palavra.getIntValue();
+			//int a = palavra.getIntValue();
+			//if(a<0) address = Long.parseLong(palavra.bitString(palavra.getBits()),2);
+			address=palavra.getIntValue();;
 			endOk = true; //pra habilitar o write e o read
 		} else if(w && av){ //se enviaram alguma coisa e endOk, insere a palavra na memoria
 			valor = palavra;

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class RegCode {
 private byte[] code;
-	
+	//classe que representa um código de registrador utilizável
 	public RegCode(Palavra mem){
 		this.code = Arrays.copyOfRange(mem.getBits(),29,31);
 	}

@@ -3,14 +3,9 @@ package model;
 import java.util.Arrays;
 
 public class LinhaControle {
+	//classe que representa uma linha de controle
 	private static final int tamLinha = 39;
 	private String funcao;
-	//private static final int fimPortas = 29;
-	//private static final int fimJump = 31;
-	//private static final int fimProx = 32;
-	//private static final int fimULA = 35;
-	//private static final int fimRWAV = 38;
-	//private static final int fimDECODE = 40;
 	
 	private byte[] linha;
 	

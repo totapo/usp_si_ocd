@@ -3,8 +3,7 @@ package model;
 import java.util.Arrays;
 
 public class Palavra {
-	//TODO
-	//SETAR A QTD BITS
+	//classe que representa uma palavra
 	public static final int qtdBitsPalavra = 32;
 	
 	private byte[] bits;
@@ -16,8 +15,6 @@ public class Palavra {
 	public Palavra(long resp) {
 		this.bits = new byte[qtdBitsPalavra];
 		String s = Long.toBinaryString(resp);
-		//System.out.println(resp+"\n"+s);
-		//if(s.length()>32) throw new Exception("overflow");
 		int cont=31;
 		for(int i=s.length()-1; i>=0 && cont>=0; i--){
 			bits[cont--] = (byte) ((s.charAt(i)=='1')?1:0);
@@ -39,6 +36,13 @@ public class Palavra {
 		if(p.length==32) bits=p;
 	}
 
+	//usado para testar o limite de enderecamento com código
+	/*
+	public Palavra(boolean b) {
+		bits = new byte[qtdBitsPalavra];
+		for(int i=0; i<qtdBitsPalavra; i++) bits[i]=1;
+	}
+	 */
 	public void setValue(byte[] b){
 		if(b.length>=32)
 			for(int i=0; i<32; i++){
@@ -54,6 +58,7 @@ public class Palavra {
 		return Arrays.copyOfRange(bits, from, to+1);
 	}
 	
+	//retorna uma String de bits baseada no array recebido
 	public String bitString(byte[] bits){
 		String r = "";
 		for(byte b:bits)

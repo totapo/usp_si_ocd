@@ -11,7 +11,7 @@ import componentes.Memoria;
 import model.Palavra;
 
 public class MemoriaModel extends AbstractTableModel {
-
+	//table model utilizado para descrição da memória
 	private static final long serialVersionUID = 1L;
 	private Map<Long,Palavra> mem;
 	private List<Entry<Long,Palavra>> l;
