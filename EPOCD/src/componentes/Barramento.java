@@ -7,10 +7,8 @@ import model.Palavra;
 import java.util.LinkedList;
 import java.util.List;
 
-//Podemos ter apenas duas instâncias de barramento, uma pra uc e registradores
-//e outra pra acesso a memoria e tal
 public class Barramento implements Subject{
-	
+	//classe que representa um barramento, pelo qual passa somente uma palavra
 	private Palavra palavraAtual;
 	
 	public Barramento(){	
@@ -31,13 +29,13 @@ public class Barramento implements Subject{
 	}
 
 	public Palavra getPalavra() {
-		//System.out.println("Pediram: " +palavraAtual.getIntValue());
 		return palavraAtual;
 	}
 
+	//a ideia é que, quando alguém colocar algo no barramento, ele notifique todos os seus
+	//observadores (portas)
 	public void setPalavra(Palavra p) {
 		palavraAtual = p;
-		//System.out.println("Setaram: " +p.getIntValue());
 		notifyObservers();
 	}
 }

@@ -3,8 +3,9 @@ package componentes;
 import model.LinhaControle;
 
 public class Firmware {
+	//classe que representa o Firmware
 	public static final LinhaControle [] instrucoes;
-	private int pointer;
+	private int pointer; //ponteiro da microinstrucao atual
 	
 	static {
 		instrucoes = new LinhaControle[71]; 
@@ -87,7 +88,7 @@ public class Firmware {
 		this.pointer = 0;
 	}
 	
-	//a UC recebe a instrucao pra dar jump no poiter quando um ciclo acaba
+	//a UC deve ter acesso ao ponteiro
 	public void setPointer(int p){
 		this.pointer = p;
 	}
@@ -96,6 +97,7 @@ public class Firmware {
 		return pointer;
 	}
 	
+	//retorna a instrucao atual
 	public LinhaControle getInstruction(){
 		return instrucoes[pointer];
 	}

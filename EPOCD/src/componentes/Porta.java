@@ -9,12 +9,13 @@ import model.Componente;
 
 
 public class Porta implements Observer, Subject{ 
-	//Subject eh pra caso a gnt queira mudar algo na tela qnd abre e fecha a porta
-	protected boolean aberta;
-	protected boolean in;
-	protected Barramento barramento;
-	protected Componente c;
-	protected int id;
+	//Classe que representa uma porta
+	//Implementa Subject para que, caso a gnt queira mudar algo na tela qnd abre e fecha a porta, fique mais fácil de identificar o que mudar
+	protected boolean aberta; //se está aberta ou fechada
+	protected boolean in; //se é de entrada ou saída
+	protected Barramento barramento; //barramento do qual faz parte
+	protected Componente c; //componente associado a porta
+	protected int id; //id da porta
 	
 	public Porta(boolean in, int id, Barramento b, Componente c, UnidadeControle uc){
 		this.c = c;
@@ -29,16 +30,15 @@ public class Porta implements Observer, Subject{
 
 	@Override
 	public void notify(Subject s) {
-		if(s instanceof UnidadeControle){
-			this.aberta = ((UnidadeControle) s).getStatus(id);
-			if(aberta && ((UnidadeControle) s).podeAtualizar()){
-				//if(in) c.setPalavra(barramento.getPalavra(),id);
-				if(!in) barramento.setPalavra(c.getPalavra());
+		if(s instanceof UnidadeControle){ //se a UC enviou um notify
+			this.aberta = ((UnidadeControle) s).getStatus(id); //abra ou feche de acordo com o que a UC pede
+			if(aberta && ((UnidadeControle) s).podeAtualizar()){ //se estiver aberta e a UC deu o OK para mexermos no barramento
+				if(!in) barramento.setPalavra(c.getPalavra()); //se for uma porta de saída envia a palavra do componente ao barramento
 			}
 			notifyObservers();
-		} else if(s instanceof Barramento){
-			if(aberta && in){
-				c.setPalavra(barramento.getPalavra(),id);
+		} else if(s instanceof Barramento){ //se o barramento enviou um notify
+			if(aberta && in){ //se a porta estiver aberta e for de entrada
+				c.setPalavra(barramento.getPalavra(),id); //pega o que tá no barramento e envia ao componente
 			}
 		}
 	}

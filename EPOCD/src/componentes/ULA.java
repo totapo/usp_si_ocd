@@ -4,6 +4,9 @@ import model.Componente;
 import model.Palavra;
 
 public class ULA extends Componente{
+	//classe que representa a ULA
+	
+	//OPERAÇÕES
 	public static final byte NDA=0;
 	public static final byte ADD=1;
 	public static final byte SUB=2; //sub num2 por num1
@@ -30,7 +33,7 @@ public class ULA extends Componente{
 	public String getCodigo(){
 		return codigo;
 	}
-	private boolean updateFlags;
+	private boolean updateFlags; //utilizado para indicar se as flags devem ser alteradas ao termino do calculo ou não
 	public void setOperacao(byte b, boolean updateFlags) throws Exception{
 		if(b>=1 && b<=7){
 			this.updateFlags = updateFlags;
@@ -53,6 +56,7 @@ public class ULA extends Componente{
 		}
 	}
 
+	//realiza o cálculo necessário e seta as flags
 	private void calc() throws Exception{
 		int a = num1.getIntValue();
 		int b = num2.getIntValue();
@@ -79,19 +83,16 @@ public class ULA extends Componente{
 			flags[1]=(byte)((resp>=0)?0:1); //flag sinal
 		}
 		resultado = new Palavra(resp);
-		System.out.println(resp+" a "+a+" b "+b+" op "+operacao);
 	}
 
 	@Override
-	public void setPalavra(Palavra palavra, int idPorta) { //utilizado pela porta
-		if(idPorta==15)num2 = palavra;
+	public void setPalavra(Palavra palavra, int idPorta) {
+		if(idPorta==15)num2 = palavra; //se a porta foi a de id 15 quer dizer que o número vem do registrador X, caso contrário veio do barramento de registradores
 		else num1 = palavra;
-		//System.out.println("Rolou "+num1+" "+num2+" "+idPorta);
 	}
 
 	@Override
 	public Palavra getPalavra() {
-		//System.out.println("Pediram resultado");
 		return resultado;
 	}
 	

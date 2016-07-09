@@ -4,6 +4,8 @@ package componentes;
 import model.RegCode;
 
 public class RegistradorUtilizavel extends Registrador {
+	//classe que representa um registrador utilizavel pelo programador
+	//AX, BX, CX, DX e DS
 	private RegCode id;
 	public RegistradorUtilizavel(String nome, String codigo,RegCode id) {
 		super(nome, codigo);
@@ -35,7 +37,5 @@ public class RegistradorUtilizavel extends Registrador {
 			return false;
 		return true;
 	}
-	
-	
 
 }
