@@ -25,6 +25,8 @@ public class Controller implements ActionListener{
 		initComponents();
 		tela = new TelaPrincipal(this);
 		tela.setMemoryModel(memoria);
+		tela.getBtnExecutaInstrucao().setEnabled(false);
+		tela.getBtnClearCodigo().setEnabled(false);
 		this.atualizarExibicao();
 		
 	}
@@ -139,7 +141,12 @@ public class Controller implements ActionListener{
 		switch(action){
 		case "Traduzir": 
 			try {
-				this.traduzir(tela.getCodigo().getText());
+				if(tela.getCodigo().getText().trim().length()>0){
+					this.traduzir(tela.getCodigo().getText());
+					//só deixa os outros botões ativos se traduziu corretamente
+					tela.getBtnExecutaInstrucao().setEnabled(true);
+					tela.getBtnClearCodigo().setEnabled(true);
+				}
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(tela, ex.getMessage());
 				ex.printStackTrace();
@@ -153,11 +160,34 @@ public class Controller implements ActionListener{
 				ex.printStackTrace();
 			}
 			break;
-		case "Limpar": break;
+		case "Limpar":
+			resetAll();
+			break;
 		default:
 		}
 		atualizarExibicao();
 	}
+
+	private void resetAll() {
+		UC.reset();;
+		memoria.reset();;
+		ula.reset();
+		mar.reset();
+		mbr.reset();
+		ir.reset();
+		p1.reset();
+		p2.reset();
+		x.reset();
+		ac.reset();
+		pc.reset();
+		ax.reset();
+		bx.reset();
+		cx.reset();
+		dx.reset();
+		ds.reset();
+	}
+
+
 
 	private void traduzir(String text) throws Exception {
 		String[] linhas = text.split("\n");

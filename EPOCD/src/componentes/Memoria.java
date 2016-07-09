@@ -44,7 +44,8 @@ public class Memoria extends Componente{
 			endOk = true; //pra habilitar o write e o read
 		} else if(w && av){
 			valor = palavra;
-			palavras.put(address,valor);
+			if(address>=0) //não aceita address negativo
+				palavras.put(address,valor);
 			endOk=false;
 		}
 	}
@@ -55,12 +56,18 @@ public class Memoria extends Componente{
 			valor = palavras.get(address);
 		}
 		endOk=false;
-		if(valor==null) return new Palavra();
+		if(valor==null && address >=0) return new Palavra(); //não aceita address negativo
 		return valor;
 	}
 	
 	public void insere(long posicao, Palavra val){
 		palavras.put(posicao,val);
+	}
+
+	@Override
+	public void reset() {
+		av = r = w = false;
+		this.palavras.clear();
 	}
 	
 }

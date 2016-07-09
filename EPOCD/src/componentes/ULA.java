@@ -102,4 +102,14 @@ public class ULA extends Componente{
 	public Palavra getNum2(){
 		return num2;
 	}
+
+	@Override
+	public void reset() {
+		flags[0]=0;
+		flags[1]=1;
+		num1 = new Palavra();
+		num2 = new Palavra();
+		operacao=0;
+		resultado = new Palavra();
+	}
 }
