@@ -40,7 +40,7 @@ public class TelaPrincipal extends JFrame {
 
 	public void iniciarComponentes() {
 		// Criando a janela
-		this.setTitle("Assembly Compiler Simulator");
+		this.setTitle("EP2 OCD");
 		this.getContentPane().setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1100, 680);
