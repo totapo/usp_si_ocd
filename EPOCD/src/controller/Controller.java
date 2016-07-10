@@ -161,6 +161,8 @@ public class Controller implements ActionListener{
 			}
 			break;
 		case "Limpar": //botao limpar
+			tela.getBtnExecutaInstrucao().setEnabled(false);
+			tela.getBtnClearCodigo().setEnabled(false);
 			resetAll();
 			break;
 		default:
